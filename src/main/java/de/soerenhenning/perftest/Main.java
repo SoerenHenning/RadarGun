@@ -11,11 +11,17 @@ public class Main {
 	}
 
 	public void execute() {
-
+		try {
+			JMHTest.main(null);
+		} catch (final RunnerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(final String[] args) throws RunnerException {
-		final Configuration configuration = Configuration.create(args);
+		// final Configuration configuration = Configuration.create(args);
+		final Configuration configuration = null; // TODO temp
 		new Main(configuration).execute();
 	}
 }

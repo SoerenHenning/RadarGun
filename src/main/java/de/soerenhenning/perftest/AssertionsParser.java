@@ -68,11 +68,11 @@ public class AssertionsParser {
 			}
 			final Object rawLowerBound = assertions.get(0);
 			final Object rawUpperBound = assertions.get(1);
-			if (!(rawLowerBound instanceof Integer)) {
+			if (!(rawLowerBound instanceof Number)) {
 				throw new IllegalArgumentException(""); // TODO lower bound is
 														// not a number
 			}
-			if (!(rawUpperBound instanceof Integer)) {
+			if (!(rawUpperBound instanceof Number)) {
 				throw new IllegalArgumentException(""); // TODO upper bound is
 														// not a number
 			}

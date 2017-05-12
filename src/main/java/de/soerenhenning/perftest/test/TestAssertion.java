@@ -2,19 +2,19 @@ package de.soerenhenning.perftest.test;
 
 public final class TestAssertion {
 
-	private final int lowerBound;
-	private final int upperBound;
+	private final double lowerBound;
+	private final double upperBound;
 
 	public TestAssertion(final int lowerBound, final int upperBound) {
 		this.lowerBound = lowerBound;
 		this.upperBound = upperBound;
 	}
 
-	public int getLowerBound() {
+	public double getLowerBound() {
 		return this.lowerBound;
 	}
 
-	public int getUpperBound() {
+	public double getUpperBound() {
 		return this.upperBound;
 	}
 
