@@ -8,9 +8,9 @@ import com.beust.jcommander.IStringConverter;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 
-public class Configuration {
+public class Options {
 
-	public Configuration() {
+	public Options() {
 	}
 
 	@Parameter(names = { "-log", "-verbose" }, description = "Level of verbosity")
@@ -28,8 +28,8 @@ public class Configuration {
 	@Parameter(names = "--exit-on-fail", description = "...") // TODO
 	private final boolean exitOnFail = false;
 
-	public static Configuration create(final String[] argv) {
-		final Configuration configuration = new Configuration();
+	public static Options create(final String[] argv) {
+		final Options configuration = new Options();
 		JCommander.newBuilder().addObject(configuration).build().parse(argv);
 		return configuration;
 	}

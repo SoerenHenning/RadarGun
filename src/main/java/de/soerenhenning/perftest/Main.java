@@ -4,10 +4,10 @@ import org.openjdk.jmh.runner.RunnerException;
 
 public class Main {
 
-	private final Configuration configuration;
+	private final Options options;
 
-	public Main(final Configuration configuration) {
-		this.configuration = configuration;
+	public Main(final Options options) {
+		this.options = options;
 	}
 
 	public void execute() {
@@ -21,7 +21,7 @@ public class Main {
 
 	public static void main(final String[] args) throws RunnerException {
 		// final Configuration configuration = Configuration.create(args);
-		final Configuration configuration = null; // TODO temp
-		new Main(configuration).execute();
+		final Options options = null; // TODO temp
+		new Main(options).execute();
 	}
 }
