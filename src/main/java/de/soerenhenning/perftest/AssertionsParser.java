@@ -18,10 +18,15 @@ public class AssertionsParser {
 	private static final String PARAMETERS_KEY = "parameters";
 	private static final String TESTS_KEY = "tests";
 
-	private final Map<String, Object> yamlDocument;
+	private final Map<?, ?> yamlDocument;
 
 	public AssertionsParser(final Object loadedObject) {
-		this.yamlDocument = parseObjectToMap(loadedObject);
+		if (loadedObject instanceof Map) {
+			this.yamlDocument = (Map<?, ?>) loadedObject;
+		} else {
+			throw new IllegalArgumentException(""); // TODO flasches format,
+													// keine Map
+		}
 	}
 
 	public String getIdentifier() {
@@ -78,16 +83,6 @@ public class AssertionsParser {
 			}
 			return new TestAssertion((Integer) rawLowerBound, (Integer) rawUpperBound);
 		}, (a, b) -> a));
-	}
-
-	@SuppressWarnings("unchecked")
-	private static Map<String, Object> parseObjectToMap(final Object loadedObject) {
-		if (loadedObject instanceof Map) {
-			return (Map<String, Object>) loadedObject;
-		} else {
-			throw new IllegalArgumentException(""); // TODO flasches format,
-													// keine Map
-		}
 	}
 
 	public static Collection<AssertionsParser> createAll(final InputStream inputStream) {
