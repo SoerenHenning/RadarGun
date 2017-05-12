@@ -61,10 +61,8 @@ public final class MachineIdentifiers {
 			throw new IllegalArgumentException("The constructor of \"" + name + "\" has thrown an exception:\n"
 					+ Throwables.getStackTraceAsString(e), e);
 		} catch (final NoSuchMethodException e) {
-			throw new IllegalArgumentException(
-					"The Machine Identifier \"" + name
-							+ "\" does not have any constructor with exactly one ForecasterConfiguration as its parameter.",
-					e);
+			throw new IllegalArgumentException("The Machine Identifier \"" + name
+					+ "\" does not have any constructor with an string array as its own parameter.", e);
 		} catch (final SecurityException e) {
 			throw new IllegalArgumentException(
 					"A Security Manager is present and \"" + name + "\"does not have the correct class loader.", e);
