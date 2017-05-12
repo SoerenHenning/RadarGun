@@ -5,7 +5,7 @@ public final class TestAssertion {
 	private final double lowerBound;
 	private final double upperBound;
 
-	public TestAssertion(final int lowerBound, final int upperBound) {
+	public TestAssertion(final double lowerBound, final double upperBound) {
 		this.lowerBound = lowerBound;
 		this.upperBound = upperBound;
 	}

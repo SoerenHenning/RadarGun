@@ -24,15 +24,14 @@ public class AssertionsParser {
 		if (loadedObject instanceof Map) {
 			this.yamlDocument = (Map<?, ?>) loadedObject;
 		} else {
-			throw new IllegalArgumentException(""); // TODO flasches format,
-													// keine Map
+			throw new IllegalArgumentException("The YAML block or document is not an associative array (map).");
 		}
 	}
 
 	public String getIdentifier() {
 		final Object identifier = this.yamlDocument.get(IDENTIFIER_KEY);
 		if (identifier == null) {
-			throw new IllegalArgumentException(""); // TODO no identifer given
+			throw new IllegalArgumentException("There is no identifier given.");
 		}
 		return identifier.toString();
 	}
@@ -43,8 +42,7 @@ public class AssertionsParser {
 			return Collections.emptyList();
 		}
 		if (!(parameters instanceof List<?>)) {
-			throw new IllegalArgumentException(""); // TODO no list of
-													// parameters given
+			throw new IllegalArgumentException("The declared parameters are not a list.");
 		}
 		return ((List<?>) parameters).stream().map(p -> p.toString()).collect(Collectors.toList());
 	}
@@ -55,33 +53,28 @@ public class AssertionsParser {
 			return Collections.emptyMap();
 		}
 		if (!(rawTests instanceof Map<?, ?>)) {
-			throw new IllegalArgumentException(""); // TODO no map of tests
-													// given
+			throw new IllegalArgumentException("The declared tests are not an associative array (map).");
 		}
 		final Map<?, ?> tests = (Map<?, ?>) rawTests;
 		return tests.entrySet().stream().collect(Collectors.toMap(e -> e.getKey().toString(), e -> {
+			final Object key = e.getKey().toString();
 			final Object rawAssertions = e.getValue();
 			if (!(rawAssertions instanceof List<?>)) {
-				throw new IllegalArgumentException(""); // TODO no list with
-														// assertions/bounds
-														// given
+				throw new IllegalArgumentException("There are no bounds given for test \"" + key + "\".");
 			}
 			final List<?> assertions = (List<?>) rawAssertions;
 			if (assertions.size() != 2) {
-				throw new IllegalArgumentException(""); // TODO not excalty 2
-														// bounds given
+				throw new IllegalArgumentException("There are not excatly two bounds given for test \"" + key + "\".");
 			}
 			final Object rawLowerBound = assertions.get(0);
 			final Object rawUpperBound = assertions.get(1);
 			if (!(rawLowerBound instanceof Number)) {
-				throw new IllegalArgumentException(""); // TODO lower bound is
-														// not a number
+				throw new IllegalArgumentException("The lower bound given for test \"" + key + "\" is not a number.");
 			}
 			if (!(rawUpperBound instanceof Number)) {
-				throw new IllegalArgumentException(""); // TODO upper bound is
-														// not a number
+				throw new IllegalArgumentException("The upper bound given for test \"" + key + "\" is not a number.");
 			}
-			return new TestAssertion((Integer) rawLowerBound, (Integer) rawUpperBound);
+			return new TestAssertion((double) rawLowerBound, (double) rawUpperBound);
 		}, (a, b) -> a));
 	}
 
