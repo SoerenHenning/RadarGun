@@ -1,4 +1,4 @@
-package de.soerenhenning.perftest;
+package de.soerenhenning.perftest.experimental;
 
 import java.util.Collection;
 

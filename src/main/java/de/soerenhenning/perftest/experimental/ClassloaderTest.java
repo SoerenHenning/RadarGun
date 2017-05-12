@@ -1,4 +1,4 @@
-package de.soerenhenning.perftest;
+package de.soerenhenning.perftest.experimental;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.soerenhenning.perftest.InputStreamsBuilder;
 
 public class ClassloaderTest {
 

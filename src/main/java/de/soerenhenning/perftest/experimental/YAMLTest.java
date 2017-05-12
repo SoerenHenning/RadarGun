@@ -1,4 +1,4 @@
-package de.soerenhenning.perftest;
+package de.soerenhenning.perftest.experimental;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,8 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.soerenhenning.perftest.AssertionsParser;
+import de.soerenhenning.perftest.InputStreamsBuilder;
 import de.soerenhenning.perftest.machine.identification.MachineIdentifier;
-import de.soerenhenning.perftest.machine.identification.WildcardMachineIdentifer;
+import de.soerenhenning.perftest.machine.identification.MachineIdentifiers;
 import de.soerenhenning.perftest.test.TestAssertion;
 
 public class YAMLTest {
@@ -46,7 +48,10 @@ public class YAMLTest {
 			assertionsParser.getIdentifier();
 			assertionsParser.getParameters();
 			// ...
-			final MachineIdentifier machineIdentifier = new WildcardMachineIdentifer();
+			final String machineIdentifierName = "";
+			final String[] machineIdentifierParameters = {};
+			final MachineIdentifier machineIdentifier = MachineIdentifiers.getByClassName(machineIdentifierName,
+					machineIdentifierParameters);
 			if (machineIdentifier.testCurrentMachine() == true) {
 				testAssertions.putAll(assertionsParser.getTests());
 			}
