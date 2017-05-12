@@ -12,11 +12,21 @@ import teetime.framework.AbstractProducerStage;
 
 public class BenchmarkRunnerStage extends AbstractProducerStage<RunResult> {
 
+	private final Runner runner;
+
+	public BenchmarkRunnerStage() {
+		final Options opt = new OptionsBuilder().build();
+		this.runner = new Runner(opt);
+	}
+
+	public BenchmarkRunnerStage(final Runner runner) {
+		this.runner = runner;
+	}
+
 	@Override
 	protected void execute() throws RunnerException {
 		// TODO exception
-		final Options opt = new OptionsBuilder().build();
-		final Collection<RunResult> runResults = new Runner(opt).run();
+		final Collection<RunResult> runResults = this.runner.run();
 		for (final RunResult runResult : runResults) {
 			this.outputPort.send(runResult);
 		}
