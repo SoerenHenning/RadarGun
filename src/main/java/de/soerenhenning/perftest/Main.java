@@ -3,6 +3,7 @@ package de.soerenhenning.perftest;
 import org.openjdk.jmh.runner.RunnerException;
 
 import de.soerenhenning.perftest.experimental.JMHTest;
+import teetime.framework.Execution;
 
 public class Main {
 
@@ -13,6 +14,9 @@ public class Main {
 	}
 
 	public void execute() {
+		final Configuration configuration = new Configuration(this.options);
+		final Execution<Configuration> analysis = new Execution<>(configuration);
+		analysis.executeBlocking();
 		// TODO Temp
 		try {
 			JMHTest.main(null);
@@ -23,7 +27,7 @@ public class Main {
 	}
 
 	public static void main(final String[] args) throws RunnerException {
-		// final Configuration configuration = Configuration.create(args);
+		// final Options options = Options.create(args);
 		final Options options = null; // TODO temp
 		new Main(options).execute();
 	}
