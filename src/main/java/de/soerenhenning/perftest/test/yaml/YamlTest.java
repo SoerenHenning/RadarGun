@@ -34,11 +34,11 @@ public class YamlTest implements Test {
 			final String[] machineIdentifierParameters = this.assertionsParser.getParameters().toArray(new String[0]);
 			return MachineIdentifiers.getByClassName(machineIdentifierName, machineIdentifierParameters);
 		} catch (final YamlParsingException e) {
-			// TODO handle expections
-			e.printStackTrace();
-			// Return an identifier that matches no machine
-			return new DismissIdentifier();
+			logException(e);
+		} catch (final IllegalArgumentException e) {
+			logException(e);
 		}
+		return new DismissIdentifier();
 	}
 
 	@Override
@@ -46,24 +46,34 @@ public class YamlTest implements Test {
 		try {
 			return this.assertionsParser.getTests();
 		} catch (final YamlParsingException e) {
-			// TODO handle exception
+			logException(e);
 			return Collections.emptyMap();
 		}
 
 	}
 
-	public static Collection<YamlParser> createAll(final InputStream inputStream) {
+	public static Collection<YamlTest> createAll(final InputStream inputStream) {
 		final Iterable<Object> loadedObjects = YAML.loadAll(inputStream);
-		final List<YamlParser> yamlParsers = new ArrayList<>();
+		final List<YamlTest> yamlParsers = new ArrayList<>();
 		for (final Object loadedObject : loadedObjects) {
 			try {
-				yamlParsers.add(new YamlParser(loadedObject));
+				yamlParsers.add(new YamlTest(new YamlParser(loadedObject)));
 			} catch (final YamlParsingException e) {
-				// TODO handle exception
-				e.printStackTrace();
+				logException(e);
 			}
+
 		}
 		return yamlParsers;
 	}
 
+	private static void logException(final YamlParsingException exception) {
+		// BETTER use logger
+		System.out.println("An error occured while processing a YAML file:");
+		System.out.println(exception.getMessage());
+	}
+
+	private static void logException(final IllegalArgumentException exception) {
+		// BETTER use logger
+		System.out.println(exception.getMessage());
+	}
 }

@@ -1,7 +1,7 @@
 package de.soerenhenning.perftest.test;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.openjdk.jmh.results.RunResult;
@@ -16,7 +16,7 @@ public class ResultComparator {
 	private final Map<String, TestAssertion> assertions = new HashMap<>();
 
 	public ResultComparator() {
-		final List<Test> tests = null;
+		final Collection<Test> tests = null;
 		for (final Test test : tests) {
 			if (test.getMachineIdentifier().testCurrentMachine()) {
 				this.assertions.putAll(test.getTests());
