@@ -15,8 +15,7 @@ public class ResultComparator {
 	private final TestResultFactory testResultFactory = new TestResultFactory();
 	private final Map<String, TestAssertion> assertions = new HashMap<>();
 
-	public ResultComparator() {
-		final Collection<Test> tests = null;
+	public ResultComparator(final Collection<Test> tests) {
 		for (final Test test : tests) {
 			if (test.getMachineIdentifier().testMachine()) {
 				this.assertions.putAll(test.getTests());
@@ -25,7 +24,8 @@ public class ResultComparator {
 	}
 
 	public TestResult compare(final RunResult runResult) {
-		final TestAssertion assertion = this.assertions.get(null); // TODO
+		final String testName = ""; // TODO
+		final TestAssertion assertion = this.assertions.get(testName);
 		return this.testResultFactory.create(runResult, assertion);
 	}
 

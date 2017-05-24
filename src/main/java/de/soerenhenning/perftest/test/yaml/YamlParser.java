@@ -1,15 +1,10 @@
 package de.soerenhenning.perftest.test.yaml;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import org.yaml.snakeyaml.Yaml;
 
 import de.soerenhenning.perftest.test.TestAssertion;
 
@@ -79,15 +74,5 @@ public class YamlParser {
 			castedTests.put(key.toString(), new TestAssertion((double) rawLowerBound, (double) rawUpperBound));
 		}
 		return castedTests;
-	}
-
-	public static Collection<YamlParser> createAll(final InputStream inputStream) throws YamlParsingException {
-		final Yaml yaml = new Yaml();
-		final Iterable<Object> loadedObjects = yaml.loadAll(inputStream);
-		final List<YamlParser> yamlParsers = new ArrayList<>();
-		for (final Object loadedObject : loadedObjects) {
-			yamlParsers.add(new YamlParser(loadedObject));
-		}
-		return yamlParsers;
 	}
 }
