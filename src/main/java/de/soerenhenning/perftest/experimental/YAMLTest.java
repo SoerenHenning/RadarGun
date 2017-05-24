@@ -13,10 +13,11 @@ import de.soerenhenning.perftest.machine.identification.MachineIdentifier;
 import de.soerenhenning.perftest.machine.identification.MachineIdentifiers;
 import de.soerenhenning.perftest.test.TestAssertion;
 import de.soerenhenning.perftest.test.yaml.YamlParser;
+import de.soerenhenning.perftest.test.yaml.YamlParsingException;
 
 public class YAMLTest {
 
-	public static void main(final String[] args) throws IOException {
+	public static void main(final String[] args) throws IOException, YamlParsingException {
 
 		// final Yaml yaml = new Yaml();
 		// final String document = "56: 25";

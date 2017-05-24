@@ -1,8 +1,8 @@
 package de.soerenhenning.perftest.machine.identification;
 
-public class WildcardMachineIdentifer implements MachineIdentifier {
+public class WildcardIdentifer implements MachineIdentifier {
 
-	public WildcardMachineIdentifer(final String... paramaters) {
+	public WildcardIdentifer(final String... paramaters) {
 	}
 
 	@Override
