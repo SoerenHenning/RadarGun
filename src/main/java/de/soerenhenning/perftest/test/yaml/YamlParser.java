@@ -1,4 +1,4 @@
-package de.soerenhenning.perftest;
+package de.soerenhenning.perftest.test.yaml;
 
 import java.io.InputStream;
 import java.util.Collection;
@@ -12,7 +12,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import de.soerenhenning.perftest.test.TestAssertion;
 
-public class AssertionsParser {
+public class YamlParser {
 
 	private static final String IDENTIFIER_KEY = "identifier";
 	private static final String PARAMETERS_KEY = "parameters";
@@ -20,7 +20,7 @@ public class AssertionsParser {
 
 	private final Map<?, ?> yamlDocument;
 
-	public AssertionsParser(final Object loadedObject) {
+	public YamlParser(final Object loadedObject) {
 		if (loadedObject instanceof Map) {
 			this.yamlDocument = (Map<?, ?>) loadedObject;
 		} else {
@@ -78,10 +78,10 @@ public class AssertionsParser {
 		}, (a, b) -> a));
 	}
 
-	public static Collection<AssertionsParser> createAll(final InputStream inputStream) {
+	public static Collection<YamlParser> createAll(final InputStream inputStream) {
 		final Yaml yaml = new Yaml();
 		final Iterable<Object> loadedObjects = yaml.loadAll(inputStream);
-		return StreamSupport.stream(loadedObjects.spliterator(), false).map(o -> new AssertionsParser(o))
+		return StreamSupport.stream(loadedObjects.spliterator(), false).map(o -> new YamlParser(o))
 				.collect(Collectors.toList());
 	}
 }

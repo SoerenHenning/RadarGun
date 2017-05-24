@@ -37,7 +37,7 @@ public final class MachineIdentifiers {
 	public static MachineIdentifier getByFullClassName(final String name, final String[] parameters) {
 
 		try {
-			// get forecaster class by using reflection
+			// get machine identifier class by using reflection
 			final Class<?> identifierClass = Class.forName(name);
 
 			final Class<?>[] constructorParameterClasses = new Class[] { String[].class };

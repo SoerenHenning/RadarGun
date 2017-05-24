@@ -8,11 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.soerenhenning.perftest.AssertionsParser;
 import de.soerenhenning.perftest.InputStreamsBuilder;
 import de.soerenhenning.perftest.machine.identification.MachineIdentifier;
 import de.soerenhenning.perftest.machine.identification.MachineIdentifiers;
 import de.soerenhenning.perftest.test.TestAssertion;
+import de.soerenhenning.perftest.test.yaml.YamlParser;
 
 public class YAMLTest {
 
@@ -38,13 +38,13 @@ public class YAMLTest {
 		inputStreamsBuilder.addPaths(paths);
 		final List<InputStream> inputStreams = inputStreamsBuilder.build();
 
-		final List<AssertionsParser> assertionsParsers = new ArrayList<>();
+		final List<YamlParser> assertionsParsers = new ArrayList<>();
 		for (final InputStream inputStream : inputStreams) {
-			assertionsParsers.addAll(AssertionsParser.createAll(inputStream));
+			assertionsParsers.addAll(YamlParser.createAll(inputStream));
 		}
 
 		final Map<String, TestAssertion> testAssertions = new HashMap<>();
-		for (final AssertionsParser assertionsParser : assertionsParsers) {
+		for (final YamlParser assertionsParser : assertionsParsers) {
 			assertionsParser.getIdentifier();
 			assertionsParser.getParameters();
 			// ...
