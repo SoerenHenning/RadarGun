@@ -14,7 +14,7 @@ public class IPAddressIdentifier implements MachineIdentifier {
 	}
 
 	@Override
-	public boolean testCurrentMachine() {
+	public boolean testMachine() {
 		try {
 			final Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
 			while (networkInterfaces.hasMoreElements()) {

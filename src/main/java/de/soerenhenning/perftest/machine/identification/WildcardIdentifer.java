@@ -6,7 +6,7 @@ public class WildcardIdentifer implements MachineIdentifier {
 	}
 
 	@Override
-	public boolean testCurrentMachine() {
+	public boolean testMachine() {
 		return true;
 	}
 

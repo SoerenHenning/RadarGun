@@ -53,7 +53,7 @@ public class YAMLTest {
 			final String[] machineIdentifierParameters = {}; // assertionsParser.getParameters();
 			final MachineIdentifier machineIdentifier = MachineIdentifiers.getByClassName(machineIdentifierName,
 					machineIdentifierParameters);
-			if (machineIdentifier.testCurrentMachine() == true) {
+			if (machineIdentifier.testMachine() == true) {
 				testAssertions.putAll(assertionsParser.getTests());
 			}
 		}

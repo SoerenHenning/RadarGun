@@ -18,7 +18,7 @@ public class ResultComparator {
 	public ResultComparator() {
 		final Collection<Test> tests = null;
 		for (final Test test : tests) {
-			if (test.getMachineIdentifier().testCurrentMachine()) {
+			if (test.getMachineIdentifier().testMachine()) {
 				this.assertions.putAll(test.getTests());
 			}
 		}
