@@ -100,6 +100,10 @@
 									<shadedPattern>radargun.lib.joptsimple</shadedPattern>
 								</relocation>
 								<relocation>
+									<pattern>com.beust.jcommander</pattern>
+									<shadedPattern>radargun.lib.com.beust.jcommander</shadedPattern>
+								</relocation>
+								<relocation>
 									<pattern>com.carrotsearch.hppc</pattern>
 									<shadedPattern>radargun.lib.com.carrotsearch.hppc</shadedPattern>
 								</relocation>
