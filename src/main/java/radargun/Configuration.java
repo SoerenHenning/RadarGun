@@ -29,16 +29,13 @@ public class Configuration extends teetime.framework.Configuration {
 		}
 
 		if (true) { // TODO get from config
-			// csv stage
-			final ExitOnFailStage exitOnFailStage = new ExitOnFailStage();
-			super.connectPorts(resultsDistributor.getNewOutputPort(), exitOnFailStage.getInputPort());
+			final CSVExportStage csvExportStage = new CSVExportStage();
+			super.connectPorts(resultsDistributor.getNewOutputPort(), csvExportStage.getInputPort());
 		}
 
 		if (true) { // TODO get from config
-			// printer stage
-			// final ExitOnFailStage exitOnFailStage = new ExitOnFailStage();
-			// super.connectPorts(resultsDistributor.getNewOutputPort(),
-			// exitOnFailStage.getInputPort());
+			final ResultsPrinterStage resultsPrinterStage = new ResultsPrinterStage();
+			super.connectPorts(resultsDistributor.getNewOutputPort(), resultsPrinterStage.getInputPort());
 		}
 
 	}
