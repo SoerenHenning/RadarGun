@@ -13,7 +13,7 @@ public class Configuration extends teetime.framework.Configuration {
 	public Configuration(final Options options) {
 		// Create base stages
 		final BenchmarkRunnerStage benchmarkRunner = new BenchmarkRunnerStage(); // TODO
-		final ResultComparatorStage resultComparator = new ResultComparatorStage();
+		final ResultComparatorStage resultComparator = new ResultComparatorStage(); // TODO
 		final Distributor<TestResult> resultsDistributor = new Distributor<>(new CopyByReferenceStrategy());
 
 		// Connect base stages
