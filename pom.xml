@@ -69,6 +69,52 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<relocations>
+								<relocation>
+									<pattern>teetime</pattern>
+									<shadedPattern>radargun.lib.teetime</shadedPattern>
+								</relocation>
+								<relocation>
+									<pattern>org.yaml.snakeyaml</pattern>
+									<shadedPattern>radargun.lib.org.yaml.snakeyaml</shadedPattern>
+								</relocation>
+								<relocation>
+									<pattern>org.jctools</pattern>
+									<shadedPattern>radargun.lib.org.jctools</shadedPattern>
+								</relocation>
+								<relocation>
+									<pattern>org.apache.commons</pattern>
+									<shadedPattern>radargun.lib.org.apache.commons</shadedPattern>
+								</relocation>
+								<relocation>
+									<pattern>joptsimple</pattern>
+									<shadedPattern>radargun.lib.joptsimple</shadedPattern>
+								</relocation>
+								<relocation>
+									<pattern>com.carrotsearch.hppc</pattern>
+									<shadedPattern>radargun.lib.com.carrotsearch.hppc</shadedPattern>
+								</relocation>
+								<relocation>
+									<pattern>com.google</pattern>
+									<shadedPattern>radargun.lib.com.google</shadedPattern>
+								</relocation>
+							</relocations>
+							<dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.5.1</version>
 				<configuration>
