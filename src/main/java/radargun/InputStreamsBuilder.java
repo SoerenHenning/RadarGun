@@ -6,8 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+//TODO use yaml in name
 public class InputStreamsBuilder {
 
 	private final List<InputStream> inputStreams = new ArrayList<>();
@@ -53,6 +55,16 @@ public class InputStreamsBuilder {
 
 	public InputStreamsBuilder addPaths(final Iterable<Path> paths) {
 		paths.forEach(this::addPath);
+		return this;
+	}
+
+	public InputStreamsBuilder addInputStream(final InputStream inputStream) {
+		this.inputStreams.add(inputStream);
+		return this;
+	}
+
+	public InputStreamsBuilder addInputStreams(final Collection<InputStream> inputStreams) {
+		this.inputStreams.addAll(inputStreams);
 		return this;
 	}
 
