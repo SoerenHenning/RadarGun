@@ -7,8 +7,8 @@ import java.util.Enumeration;
 
 /**
  * This {@link MachineIdentifier} tests the execution machine for a given array
- * of network identifiers. Network identifiers can either be IP addresses or
- * host names. A test is successful if at least one given network identifier
+ * of network addresses. Network addresses can either be IP addresses or host
+ * names. A test is successful if at least one given network addresse
  * corresponds to the executing machine.
  *
  * @author Sören Henning
@@ -16,10 +16,10 @@ import java.util.Enumeration;
  */
 public class NetworkAddressIdentifier implements MachineIdentifier {
 
-	private final String[] ipAddresses;
+	private final String[] networkAddresses;
 
-	public NetworkAddressIdentifier(final String... identifier) {
-		this.ipAddresses = identifier;
+	public NetworkAddressIdentifier(final String... networkAddresses) {
+		this.networkAddresses = networkAddresses;
 	}
 
 	@Override
@@ -27,12 +27,12 @@ public class NetworkAddressIdentifier implements MachineIdentifier {
 		try {
 			final Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
 			while (networkInterfaces.hasMoreElements()) {
-				final NetworkInterface n = networkInterfaces.nextElement();
-				final Enumeration<InetAddress> InetAdresses = n.getInetAddresses();
+				final NetworkInterface networkInterface = networkInterfaces.nextElement();
+				final Enumeration<InetAddress> InetAdresses = networkInterface.getInetAddresses();
 				while (InetAdresses.hasMoreElements()) {
 					final String discoveredIpAddress = InetAdresses.nextElement().getHostAddress();
 					final String discoveredHostName = InetAdresses.nextElement().getHostName();
-					for (final String ipAddress : this.ipAddresses) {
+					for (final String ipAddress : this.networkAddresses) {
 						if (discoveredIpAddress.equals(ipAddress)) {
 							return true;
 						}

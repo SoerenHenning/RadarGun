@@ -25,8 +25,8 @@ public class MacAddressIdentifier implements MachineIdentifier {
 		try {
 			final Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
 			while (networkInterfaces.hasMoreElements()) {
-				final NetworkInterface n = networkInterfaces.nextElement();
-				final byte[] discoveredMacAddress = n.getHardwareAddress();
+				final NetworkInterface networkInterface = networkInterfaces.nextElement();
+				final byte[] discoveredMacAddress = networkInterface.getHardwareAddress();
 				if (discoveredMacAddress != null) {
 					for (final byte[] macAddress : this.macAddresses) {
 						if (Arrays.equals(macAddress, discoveredMacAddress)) {
