@@ -5,12 +5,21 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
-public class IPAddressIdentifier implements MachineIdentifier {
+/**
+ * This {@link MachineIdentifier} tests the execution machine for a given array
+ * of network identifiers. Network identifiers can either be IP addresses or
+ * host names. A test is successful if at least one given network identifier
+ * corresponds to the executing machine.
+ *
+ * @author Sören Henning
+ *
+ */
+public class NetworkAddressIdentifier implements MachineIdentifier {
 
 	private final String[] ipAddresses;
 
-	public IPAddressIdentifier(final String... ipAddresses) {
-		this.ipAddresses = ipAddresses;
+	public NetworkAddressIdentifier(final String... identifier) {
+		this.ipAddresses = identifier;
 	}
 
 	@Override
@@ -21,9 +30,13 @@ public class IPAddressIdentifier implements MachineIdentifier {
 				final NetworkInterface n = networkInterfaces.nextElement();
 				final Enumeration<InetAddress> InetAdresses = n.getInetAddresses();
 				while (InetAdresses.hasMoreElements()) {
-					final InetAddress inetAddress = InetAdresses.nextElement();
+					final String discoveredIpAddress = InetAdresses.nextElement().getHostAddress();
+					final String discoveredHostName = InetAdresses.nextElement().getHostName();
 					for (final String ipAddress : this.ipAddresses) {
-						if (inetAddress.equals(ipAddress)) {
+						if (discoveredIpAddress.equals(ipAddress)) {
+							return true;
+						}
+						if (discoveredHostName.equals(ipAddress)) {
 							return true;
 						}
 					}
