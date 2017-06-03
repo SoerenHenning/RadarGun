@@ -9,15 +9,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-//TODO use yaml in name
-public class InputStreamsBuilder {
+public class YamlInputStreamsBuilder {
 
 	private final List<InputStream> inputStreams = new ArrayList<>();
 
-	public InputStreamsBuilder() {
+	public YamlInputStreamsBuilder() {
 	}
 
-	public InputStreamsBuilder addClasspathLocation(final String classpathLocation) {
+	public YamlInputStreamsBuilder addClasspathLocation(final String classpathLocation) {
 		final InputStream stream = this.getClass().getResourceAsStream(classpathLocation);
 		if (stream != null) {
 			this.inputStreams.add(stream);
@@ -27,12 +26,12 @@ public class InputStreamsBuilder {
 		return this;
 	}
 
-	public InputStreamsBuilder addClasspathLocations(final Iterable<String> classpathLocation) {
+	public YamlInputStreamsBuilder addClasspathLocations(final Iterable<String> classpathLocation) {
 		classpathLocation.forEach(this::addClasspathLocation);
 		return this;
 	}
 
-	public InputStreamsBuilder addPath(final Path path) {
+	public YamlInputStreamsBuilder addPath(final Path path) {
 		if (Files.isRegularFile(path)) {
 			try {
 				final InputStream stream = Files.newInputStream(path);
@@ -53,17 +52,17 @@ public class InputStreamsBuilder {
 		return this;
 	}
 
-	public InputStreamsBuilder addPaths(final Iterable<Path> paths) {
+	public YamlInputStreamsBuilder addPaths(final Iterable<Path> paths) {
 		paths.forEach(this::addPath);
 		return this;
 	}
 
-	public InputStreamsBuilder addInputStream(final InputStream inputStream) {
+	public YamlInputStreamsBuilder addInputStream(final InputStream inputStream) {
 		this.inputStreams.add(inputStream);
 		return this;
 	}
 
-	public InputStreamsBuilder addInputStreams(final Collection<InputStream> inputStreams) {
+	public YamlInputStreamsBuilder addInputStreams(final Collection<InputStream> inputStreams) {
 		this.inputStreams.addAll(inputStreams);
 		return this;
 	}

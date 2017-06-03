@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import radargun.InputStreamsBuilder;
+import radargun.YamlInputStreamsBuilder;
 
 public class ClassloaderTest {
 
@@ -16,7 +16,7 @@ public class ClassloaderTest {
 
 		System.out.println("Hi!");
 
-		final InputStreamsBuilder builder = new InputStreamsBuilder();
+		final YamlInputStreamsBuilder builder = new YamlInputStreamsBuilder();
 		// builder.addClasspathLocation("test.txt");
 		// builder.addClasspathLocation("testdir");
 		builder.addPath(Paths.get(""));
