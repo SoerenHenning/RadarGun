@@ -29,17 +29,16 @@ public class Configuration extends teetime.framework.Configuration {
 		// Set exposed output port
 		this.outputPort = resultsDistributor.getNewOutputPort();
 
+		// Create optional stages
 		if (options.isExitOnFail()) {
 			final ExitOnFailStage exitOnFailStage = new ExitOnFailStage();
 			super.connectPorts(resultsDistributor.getNewOutputPort(), exitOnFailStage.getInputPort());
 		}
-
 		final Optional<Path> csvDirectory = options.getCsvDirectory();
 		if (csvDirectory.isPresent()) {
 			final CSVExportStage csvExportStage = new CSVExportStage(csvDirectory.get());
 			super.connectPorts(resultsDistributor.getNewOutputPort(), csvExportStage.getInputPort());
 		}
-
 		if (options.isOutput()) {
 			final ResultsPrinterStage resultsPrinterStage = new ResultsPrinterStage(options.getOutputStream());
 			super.connectPorts(resultsDistributor.getNewOutputPort(), resultsPrinterStage.getInputPort());
