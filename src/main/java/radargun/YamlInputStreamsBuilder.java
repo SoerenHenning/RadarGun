@@ -26,8 +26,8 @@ public class YamlInputStreamsBuilder {
 		return this;
 	}
 
-	public YamlInputStreamsBuilder addClasspathLocations(final Iterable<String> classpathLocation) {
-		classpathLocation.forEach(this::addClasspathLocation);
+	public YamlInputStreamsBuilder addClasspathLocations(final Iterable<String> classpathLocations) {
+		classpathLocations.forEach(this::addClasspathLocation);
 		return this;
 	}
 

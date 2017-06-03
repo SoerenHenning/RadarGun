@@ -7,7 +7,11 @@ import teetime.stage.basic.AbstractTransformation;
 
 public class ResultComparatorStage extends AbstractTransformation<RunResult, TestResult> {
 
-	private final ResultComparator resultComparator = ResultComparator.fromInputStreams(null); // TODO
+	private final ResultComparator resultComparator;
+
+	public ResultComparatorStage(final ResultComparator resultComparator) {
+		this.resultComparator = resultComparator;
+	}
 
 	@Override
 	protected void execute(final RunResult runResult) throws Exception {

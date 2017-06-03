@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -64,6 +65,10 @@ public class YamlTest implements Test {
 
 		}
 		return yamlParsers;
+	}
+
+	public static Collection<YamlTest> createAll(final Collection<InputStream> inputStreams) {
+		return inputStreams.stream().flatMap(s -> YamlTest.createAll(s).stream()).collect(Collectors.toList());
 	}
 
 	private static void logException(final YamlParsingException exception) {

@@ -1,7 +1,12 @@
 package radargun;
 
+import java.nio.file.Path;
+import java.util.Optional;
+
+import radargun.test.ResultComparator;
 import radargun.test.ResultComparatorStage;
 import radargun.test.result.TestResult;
+import radargun.test.yaml.YamlTest;
 import teetime.framework.OutputPort;
 import teetime.stage.basic.distributor.Distributor;
 import teetime.stage.basic.distributor.strategy.CopyByReferenceStrategy;
@@ -12,8 +17,9 @@ public class Configuration extends teetime.framework.Configuration {
 
 	public Configuration(final Options options) {
 		// Create base stages
-		final BenchmarkRunnerStage benchmarkRunner = new BenchmarkRunnerStage(); // TODO
-		final ResultComparatorStage resultComparator = new ResultComparatorStage(); // TODO
+		final BenchmarkRunnerStage benchmarkRunner = new BenchmarkRunnerStage(options.getRunner());
+		final ResultComparatorStage resultComparator = new ResultComparatorStage(
+				new ResultComparator(YamlTest.createAll(options.getYamlInputStreams())));
 		final Distributor<TestResult> resultsDistributor = new Distributor<>(new CopyByReferenceStrategy());
 
 		// Connect base stages
@@ -23,18 +29,19 @@ public class Configuration extends teetime.framework.Configuration {
 		// Set exposed output port
 		this.outputPort = resultsDistributor.getNewOutputPort();
 
-		if (true) { // TODO get from config
+		if (options.isExitOnFail()) {
 			final ExitOnFailStage exitOnFailStage = new ExitOnFailStage();
 			super.connectPorts(resultsDistributor.getNewOutputPort(), exitOnFailStage.getInputPort());
 		}
 
-		if (true) { // TODO get from config
-			final CSVExportStage csvExportStage = new CSVExportStage();
+		final Optional<Path> csvDirectory = options.getCsvDirectory();
+		if (csvDirectory.isPresent()) {
+			final CSVExportStage csvExportStage = new CSVExportStage(csvDirectory.get());
 			super.connectPorts(resultsDistributor.getNewOutputPort(), csvExportStage.getInputPort());
 		}
 
-		if (true) { // TODO get from config
-			final ResultsPrinterStage resultsPrinterStage = new ResultsPrinterStage();
+		if (options.isOutput()) {
+			final ResultsPrinterStage resultsPrinterStage = new ResultsPrinterStage(options.getOutputStream());
 			super.connectPorts(resultsDistributor.getNewOutputPort(), resultsPrinterStage.getInputPort());
 		}
 

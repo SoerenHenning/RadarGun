@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import org.openjdk.jmh.results.RunResult;
 
@@ -18,16 +17,12 @@ public class ResultComparator {
 	private final TestResultFactory testResultFactory = new TestResultFactory();
 	private final Map<String, TestAssertion> assertions = new HashMap<>();
 
-	public ResultComparator(final Iterable<Test> tests) {
-		for (final Test test : tests) {
+	public ResultComparator(final Iterable<? extends Test> collection) {
+		for (final Test test : collection) {
 			if (test.getMachineIdentifier().testMachine()) {
 				this.assertions.putAll(test.getTests());
 			}
 		}
-	}
-
-	public ResultComparator(final Stream<Test> tests) {
-		tests.filter(t -> t.getMachineIdentifier().testMachine()).forEach(t -> this.assertions.putAll(t.getTests()));
 	}
 
 	public TestResult compare(final RunResult runResult) {
@@ -36,8 +31,9 @@ public class ResultComparator {
 		return this.testResultFactory.create(runResult, assertion);
 	}
 
+	@Deprecated
 	public static ResultComparator fromInputStreams(final Collection<InputStream> inputStreams) {
-		return new ResultComparator(inputStreams.stream().flatMap(s -> YamlTest.createAll(s).stream()));
+		return new ResultComparator(YamlTest.createAll(inputStreams));
 	}
 
 }
