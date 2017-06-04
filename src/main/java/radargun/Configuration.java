@@ -36,7 +36,7 @@ public class Configuration extends teetime.framework.Configuration {
 		}
 		final Optional<Path> csvDirectory = options.getCsvDirectory();
 		if (csvDirectory.isPresent()) {
-			final CSVExportStage csvExportStage = new CSVExportStage(csvDirectory.get());
+			final CSVExportStage csvExportStage = new CSVExportStage(new CSVExport(csvDirectory.get()));
 			super.connectPorts(resultsDistributor.getNewOutputPort(), csvExportStage.getInputPort());
 		}
 		if (options.isOutput()) {
