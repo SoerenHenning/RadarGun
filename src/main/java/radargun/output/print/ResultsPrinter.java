@@ -29,8 +29,7 @@ public class ResultsPrinter {
 		this.startPrinting();
 
 		final String status = this.getStatus(result).toString();
-		final String label = result.getRunResult().getParams().getBenchmark() + "."
-				+ result.getRunResult().getPrimaryResult().getLabel();
+		final String label = result.getRunResult().getParams().getBenchmark();
 		final String score = result.getRunResult().getPrimaryResult().toString();
 		final String lowerBound = String.valueOf(result.getAssertion().getLowerBound());
 		final String upperBound = String.valueOf(result.getAssertion().getUpperBound());
