@@ -18,4 +18,6 @@ public final class Assertion {
 		return this.upperBound;
 	}
 
+	public static final Assertion DUMMY = new Assertion(Double.NaN, Double.NaN);
+
 }

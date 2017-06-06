@@ -21,7 +21,11 @@ public class TestResultFactory {
 	public TestResult create(final RunResult runResult, final Assertion assertion) {
 		final double score = this.scoreAccessor.applyAsDouble(runResult);
 
-		if (score < assertion.getLowerBound()) {
+		if (Double.isNaN(assertion.getLowerBound()) && Double.isNaN(assertion.getUpperBound())) {
+			return new TestWithoutAssertionResult(assertion, runResult);
+		} else if (Double.isNaN(score)) {
+			return new TestNotExecutedResult(assertion, runResult);
+		} else if (score < assertion.getLowerBound()) {
 			return new TestUndercutsBoundsResult(assertion, runResult);
 		} else if (score > assertion.getUpperBound()) {
 			return new TestExceedsBoundsResult(assertion, runResult);
