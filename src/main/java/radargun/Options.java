@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
+import org.openjdk.jmh.runner.options.VerboseMode;
 
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.IStringConverter;
@@ -37,7 +38,10 @@ public class Options {
 	@Parameter(names = "--console-output", description = "...") // TODO
 	private boolean output = true;
 
-	@Parameter(names = "--console-output", validateWith = PrintStreamValidator.class, converter = PrintStreamConverter.class)
+	@Parameter(names = "--jmh-output", description = "...") // TODO
+	private final boolean jmhOutput = false;
+
+	@Parameter(names = "--output-stream", validateWith = PrintStreamValidator.class, converter = PrintStreamConverter.class)
 	private PrintStream outputStream = System.out;
 
 	@Parameter(names = "--csv", converter = PathConverter.class, description = "...") // TODO
@@ -47,9 +51,17 @@ public class Options {
 
 	private Collection<InputStream> inputStreams; // TODO
 
+	private Runner getDefaultRunner() {
+		final OptionsBuilder jmhOptionsBuilder = new OptionsBuilder();
+		if (!this.jmhOutput) {
+			jmhOptionsBuilder.verbosity(VerboseMode.SILENT);
+		}
+		return new Runner(jmhOptionsBuilder.build());
+	}
+
 	public Runner getRunner() {
 		if (this.runner == null) {
-			return new Runner(new OptionsBuilder().build());
+			return this.getDefaultRunner();
 		} else {
 			return this.runner;
 		}
