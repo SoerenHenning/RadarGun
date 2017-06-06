@@ -4,7 +4,9 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +31,7 @@ public class Options {
 	private boolean help;
 
 	@Parameter(names = "--assertions", converter = PathConverter.class, description = "...") // TODO
-	private List<Path> file; // TODO name
+	private List<Path> files; // TODO name
 
 	@Parameter(names = "--cpassertions", description = "...") // TODO
 	private List<String> classpathLocations; // TODO name
@@ -41,7 +43,7 @@ public class Options {
 	private boolean output = true;
 
 	@Parameter(names = "--jmh-output", description = "...") // TODO
-	private final boolean jmhOutput = false;
+	private boolean jmhOutput = false;
 
 	@Parameter(names = "--output-stream", validateWith = PrintStreamValidator.class, converter = PrintStreamConverter.class)
 	private PrintStream outputStream = System.out;
@@ -51,11 +53,11 @@ public class Options {
 
 	private Runner runner; // TODO
 
-	private Collection<InputStream> inputStreams; // TODO
+	private List<InputStream> additionallyInputStreams; // TODO
 
 	private Runner getDefaultRunner() {
 		final OptionsBuilder jmhOptionsBuilder = new OptionsBuilder();
-		if (!this.jmhOutput) {
+		if (!this.isJmhOutput()) {
 			jmhOptionsBuilder.verbosity(VerboseMode.SILENT);
 		}
 		return new Runner(jmhOptionsBuilder.build());
@@ -73,12 +75,34 @@ public class Options {
 		this.runner = runner;
 	}
 
-	public List<Path> getFile() {
-		return this.file;
+	public List<Path> getFiles() {
+		if (this.files == null) {
+			this.files = new ArrayList<>(4);
+		}
+		return this.files;
 	}
 
-	public void setFile(final List<Path> file) {
-		this.file = file;
+	private List<Path> getFilesIfPresent() {
+		if (this.files == null) {
+			return Collections.emptyList();
+		} else {
+			return this.files;
+		}
+	}
+
+	public List<String> getClasspathLocations() {
+		if (this.classpathLocations == null) {
+			this.classpathLocations = new ArrayList<>(4);
+		}
+		return this.classpathLocations;
+	}
+
+	private List<String> getClasspathLocationsIfPresent() {
+		if (this.classpathLocations == null) {
+			return Collections.emptyList();
+		} else {
+			return this.classpathLocations;
+		}
 	}
 
 	public boolean isExitOnFail() {
@@ -105,6 +129,14 @@ public class Options {
 		this.outputStream = outputStream;
 	}
 
+	public boolean isJmhOutput() {
+		return this.jmhOutput;
+	}
+
+	public void setJmhOutput(final boolean jmhOutput) {
+		this.jmhOutput = jmhOutput;
+	}
+
 	public void deactivateCsvOutput() {
 		this.csvDirectory = null;
 	}
@@ -117,16 +149,27 @@ public class Options {
 		return Optional.ofNullable(this.csvDirectory);
 	}
 
-	public void setYamlInputStreams(final Collection<InputStream> inputStreams) {
-		this.inputStreams = inputStreams;
+	public List<InputStream> getAddionallyInputStreams() {
+		if (this.additionallyInputStreams == null) {
+			this.additionallyInputStreams = new ArrayList<>(4);
+		}
+		return this.additionallyInputStreams;
+	}
+
+	private List<InputStream> getAddionallyInputStreamsIfPresent() {
+		if (this.additionallyInputStreams == null) {
+			return Collections.emptyList();
+		} else {
+			return this.additionallyInputStreams;
+		}
 	}
 
 	public Collection<InputStream> getYamlInputStreams() {
-		return new YamlInputStreamsBuilder().addClasspathLocations(this.classpathLocations).addPaths(this.file)
-				.addInputStreams(this.inputStreams).build();
+		return new YamlInputStreamsBuilder().addClasspathLocations(this.getClasspathLocationsIfPresent())
+				.addPaths(this.getFilesIfPresent()).addInputStreams(this.getAddionallyInputStreamsIfPresent()).build();
 	}
 
-	public static Options create(final String[] argv) {
+	public static Options create(final String... argv) {
 		final Options configuration = new Options();
 		JCommander.newBuilder().addObject(configuration).build().parse(argv);
 		return configuration;

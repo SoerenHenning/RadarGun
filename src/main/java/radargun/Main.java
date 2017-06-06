@@ -27,8 +27,7 @@ public class Main {
 	}
 
 	public static void main(final String[] args) throws RunnerException {
-		// final Options options = Options.create(args);
-		final Options options = null; // TODO temp
+		final Options options = Options.create(args);
 		new Main(options).execute();
 	}
 }
