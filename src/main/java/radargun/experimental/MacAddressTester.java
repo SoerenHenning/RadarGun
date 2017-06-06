@@ -2,8 +2,8 @@ package radargun.experimental;
 
 import java.net.SocketException;
 
-import radargun.machine.identification.MacAddressIdentifier;
-import radargun.machine.identification.MachineIdentifier;
+import radargun.comparsion.machine.identification.MacAddressIdentifier;
+import radargun.comparsion.machine.identification.MachineIdentifier;
 
 public class MacAddressTester {
 

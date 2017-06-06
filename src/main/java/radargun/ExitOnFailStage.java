@@ -1,6 +1,6 @@
 package radargun;
 
-import radargun.test.result.TestResult;
+import radargun.comparsion.result.TestResult;
 import teetime.framework.AbstractConsumerStage;
 
 public class ExitOnFailStage extends AbstractConsumerStage<TestResult> {
