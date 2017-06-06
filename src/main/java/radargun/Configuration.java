@@ -10,6 +10,7 @@ import radargun.comparsion.result.TestResult;
 import radargun.comparsion.yaml.YamlTest;
 import radargun.output.csv.CSVExport;
 import radargun.output.csv.CSVExportStage;
+import radargun.output.print.ResultsPrinter;
 import radargun.output.print.ResultsPrinterStage;
 import teetime.framework.OutputPort;
 import teetime.stage.basic.distributor.Distributor;
@@ -44,7 +45,8 @@ public class Configuration extends teetime.framework.Configuration {
 			super.connectPorts(resultsDistributor.getNewOutputPort(), csvExportStage.getInputPort());
 		}
 		if (options.isOutput()) {
-			final ResultsPrinterStage resultsPrinterStage = new ResultsPrinterStage(options.getOutputStream());
+			final ResultsPrinterStage resultsPrinterStage = new ResultsPrinterStage(
+					new ResultsPrinter(options.getOutputStream()));
 			super.connectPorts(resultsDistributor.getNewOutputPort(), resultsPrinterStage.getInputPort());
 		}
 
