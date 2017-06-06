@@ -1,7 +1,5 @@
 package radargun.comparsion;
 
-import java.io.InputStream;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +7,6 @@ import org.openjdk.jmh.results.RunResult;
 
 import radargun.comparsion.result.TestResult;
 import radargun.comparsion.result.TestResultFactory;
-import radargun.comparsion.yaml.YamlTest;
 
 public class ResultComparator {
 
@@ -28,11 +25,6 @@ public class ResultComparator {
 		final String testName = ""; // TODO
 		final Assertion assertion = this.assertions.getOrDefault(testName, Assertion.DUMMY);
 		return this.testResultFactory.create(runResult, assertion);
-	}
-
-	@Deprecated
-	public static ResultComparator fromInputStreams(final Collection<InputStream> inputStreams) {
-		return new ResultComparator(YamlTest.createAll(inputStreams));
 	}
 
 }
