@@ -2,28 +2,19 @@ package radargun;
 
 import org.openjdk.jmh.runner.RunnerException;
 
-import radargun.experimental.JMHTest;
 import teetime.framework.Execution;
 
 public class Main {
 
-	private final Options options;
+	final Execution<Configuration> analysis;
 
 	public Main(final Options options) {
-		this.options = options;
+		final Configuration configuration = new Configuration(options);
+		this.analysis = new Execution<>(configuration);
 	}
 
 	public void execute() {
-		final Configuration configuration = new Configuration(this.options);
-		final Execution<Configuration> analysis = new Execution<>(configuration);
-		analysis.executeBlocking();
-		// TODO Temp
-		try {
-			JMHTest.main(null);
-		} catch (final RunnerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.analysis.executeBlocking();
 	}
 
 	public static void main(final String[] args) throws RunnerException {
