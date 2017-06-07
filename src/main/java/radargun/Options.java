@@ -36,6 +36,9 @@ public class Options {
 	@Parameter(names = "--cpassertions", description = "...") // TODO
 	private List<String> classpathLocations; // TODO name
 
+	@Parameter(names = "--exit-on-fail-immediately", description = "...") // TODO
+	private boolean exitOnFailImmediately = false;
+
 	@Parameter(names = "--exit-on-fail", description = "...") // TODO
 	private boolean exitOnFail = false;
 
@@ -111,6 +114,14 @@ public class Options {
 
 	public void setExitOnFail(final boolean exitOnFail) {
 		this.exitOnFail = exitOnFail;
+	}
+
+	public boolean isExitOnFailImmediately() {
+		return this.exitOnFailImmediately;
+	}
+
+	public void setExitOnFailImmediately(final boolean exitOnFailImmediately) {
+		this.exitOnFailImmediately = exitOnFailImmediately;
 	}
 
 	public boolean isOutput() {

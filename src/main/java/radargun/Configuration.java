@@ -10,6 +10,8 @@ import radargun.comparsion.result.TestResult;
 import radargun.comparsion.yaml.YamlTest;
 import radargun.output.csv.CSVExport;
 import radargun.output.csv.CSVExportStage;
+import radargun.output.exitonfail.FinallyExitOnFailStage;
+import radargun.output.exitonfail.ImmediatelyExitOnFailStage;
 import radargun.output.print.ResultsPrinter;
 import radargun.output.print.ResultsPrinterStage;
 import teetime.framework.OutputPort;
@@ -36,7 +38,11 @@ public class Configuration extends teetime.framework.Configuration {
 
 		// Create optional stages
 		if (options.isExitOnFail()) {
-			final ExitOnFailStage exitOnFailStage = new ExitOnFailStage();
+			final FinallyExitOnFailStage exitOnFailStage = new FinallyExitOnFailStage();
+			super.connectPorts(resultsDistributor.getNewOutputPort(), exitOnFailStage.getInputPort());
+		}
+		if (options.isExitOnFailImmediately()) {
+			final ImmediatelyExitOnFailStage exitOnFailStage = new ImmediatelyExitOnFailStage();
 			super.connectPorts(resultsDistributor.getNewOutputPort(), exitOnFailStage.getInputPort());
 		}
 		final Optional<Path> csvDirectory = options.getCsvDirectory();
