@@ -16,7 +16,7 @@ public class CSVExport {
 	}
 
 	public Path export(final TestResult result) throws IOException {
-		final String testName = result.getRunResult().getPrimaryResult().getLabel();
+		final String testName = result.getRunResult().getParams().getBenchmark();
 		final double score = result.getRunResult().getPrimaryResult().getScore();
 		final double lowerBound = result.getAssertion().getLowerBound();
 		final double upperBound = result.getAssertion().getUpperBound();
