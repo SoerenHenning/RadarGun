@@ -43,7 +43,7 @@ public class Options {
 	private boolean output = true;
 
 	@Parameter(names = "--jmh-output", description = "...") // TODO
-	private boolean jmhOutput = true;
+	private boolean jmhOutput = false;
 
 	@Parameter(names = "--output-stream", validateWith = PrintStreamValidator.class, converter = PrintStreamConverter.class)
 	private PrintStream outputStream = System.out;
