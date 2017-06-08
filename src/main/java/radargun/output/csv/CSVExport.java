@@ -36,9 +36,13 @@ public class CSVExport {
 	private Path appendResult(final Path file, final double score, final double lowerBound, final double upperBound)
 			throws IOException {
 		return Files.write(file,
-				('\n' + String.valueOf(score) + ',' + String.valueOf(lowerBound) + ',' + String.valueOf(upperBound))
+				('\n' + this.makeString(score) + ',' + this.makeString(lowerBound) + ',' + this.makeString(upperBound))
 						.getBytes(),
 				StandardOpenOption.APPEND);
+	}
+
+	private String makeString(final double value) {
+		return Double.isFinite(value) ? String.valueOf(value) : "";
 	}
 
 	private Path createCSVFile(final Path file) throws IOException {
