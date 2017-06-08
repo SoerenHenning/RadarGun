@@ -9,6 +9,8 @@ after_success:
   - test $TRAVIS_BRANCH = "master" && echo "deploy2"
   - test $TRAVIS_BRANCH != "master" && echo " not deploy2"
   - if [ "$TRAVIS_BRANCH" == "master" -a "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "This will deploy!"; fi
+  - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo "This will deploy!"; fi
+  - if [ "$TRAVIS_BRANCH" != "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo "TEST This will deploy!"; fi
   - if ["$TRAVIS_BRANCH" == "master"]; echo "This will deploy!"; fi
   - echo ["$TRAVIS_PULL_REQUEST" == "false"]
   - echo ["$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false"]
