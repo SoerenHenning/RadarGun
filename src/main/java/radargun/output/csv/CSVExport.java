@@ -25,24 +25,25 @@ public class CSVExport {
 	}
 
 	private Path getOrCreateCSVFile(final String name) throws IOException {
-		final Path csvFile = this.directory.resolve(name);
-		if (Files.isRegularFile(csvFile)) {
-			return csvFile;
+		final Path file = this.directory.resolve(name);
+		if (Files.isRegularFile(file)) {
+			return file;
 		} else {
-			return this.writeHeader(csvFile);
+			return this.createCSVFile(file);
 		}
 	}
 
-	private Path appendResult(final Path path, final double score, final double lowerBound, final double upperBound)
+	private Path appendResult(final Path file, final double score, final double lowerBound, final double upperBound)
 			throws IOException {
-		return Files.write(path,
+		return Files.write(file,
 				('\n' + String.valueOf(score) + ',' + String.valueOf(lowerBound) + ',' + String.valueOf(upperBound))
 						.getBytes(),
 				StandardOpenOption.APPEND);
 	}
 
-	private Path writeHeader(final Path path) throws IOException {
-		return Files.write(path, ("score,lowerBound,upperBound").getBytes(), StandardOpenOption.CREATE);
+	private Path createCSVFile(final Path file) throws IOException {
+		Files.createDirectories(file.getParent());
+		return Files.write(file, ("score,lowerBound,upperBound").getBytes(), StandardOpenOption.CREATE);
 	}
 
 }
