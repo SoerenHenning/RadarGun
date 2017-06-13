@@ -1,8 +1,8 @@
 package radargun.comparsion.machine.identification;
 
-public class WildcardIdentifer implements MachineIdentifier {
+public class WildcardIdentifier implements MachineIdentifier {
 
-	public WildcardIdentifer(final String... paramaters) {
+	public WildcardIdentifier(final String... paramaters) {
 	}
 
 	@Override
