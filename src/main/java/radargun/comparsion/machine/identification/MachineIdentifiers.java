@@ -11,7 +11,7 @@ import com.google.common.base.Throwables;
  */
 public final class MachineIdentifiers {
 
-	private static final String IDENTIFIER_PATH = "de.soerenhenning.perftest.machine.identification";
+	private static final String IDENTIFIER_PATH = "radargun.comparsion.machine.identification";
 
 	private MachineIdentifiers() {
 	}
