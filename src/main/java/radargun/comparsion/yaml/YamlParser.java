@@ -72,7 +72,7 @@ public class YamlParser {
 				throw new YamlParsingException("The upper bound given for test \"" + key + "\" is not a number.");
 			}
 			final double lowerBound = ((Number) rawLowerBound).doubleValue();
-			final double upperBound = ((Number) rawLowerBound).doubleValue();
+			final double upperBound = ((Number) rawUpperBound).doubleValue();
 			castedTests.put(key.toString(), new Assertion(lowerBound, upperBound));
 		}
 		return castedTests;
