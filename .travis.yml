@@ -2,6 +2,19 @@ language: java
 jdk:
   - oraclejdk8
 after_success:
+  - if [ "$TRAVIS_BRANCH" != "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then mvn deploy --settings deploy/settings.xml -DperformRelease=true -DskipTests=true; fi
+  - echo "$TRAVIS_BRANCH"
+  - echo "$TRAVIS_PULL_REQUEST"
+  - echo ["$TRAVIS_BRANCH" == "master"]
+  - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; echo "deploy!!!!"; fi
+  - test $TRAVIS_BRANCH = "master" && echo "deploy2"
+  - test $TRAVIS_BRANCH != "master" && echo " not deploy2"
+  - if [ "$TRAVIS_BRANCH" == "master" -a "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "This will deploy!"; fi
+  - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo "This will deploy!"; fi
+  - if [ "$TRAVIS_BRANCH" != "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo "TEST This will deploy!"; fi
+  - if ["$TRAVIS_BRANCH" == "master"]; echo "This will deploy!"; fi
+  - echo ["$TRAVIS_PULL_REQUEST" == "false"]
+  - echo ["$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false"]
   - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; mvn deploy --settings deploy/settings.xml -DperformRelease=true -DskipTests=true; fi
 env:
   global:
@@ -9,5 +22,3 @@ env:
     - secure: "YdV2MYZywrb/Z3XhLPMtPPG7ioJHhuP4desH/O2kQL3oeo4ZHsDapeM+8iZ5pntIjqH5Lb57UHif9nw79d9v7dUZ6REAQDDNgpotxFU3dKVV8E2JC7rN695FDI1J0HEOf9s3FCNRP3aBHvgmnOEx8UVZywmsLG6R5NJNnv1+C4xweZhX9USNXYMitqxZoS/G7IlxWQY/7TPbKZ0lbDJuGlLELyU9UPu43PYC3yPBuwsBt7AcerGU2YlWAcja7ziTWRZgM33DCn2kZw70vlcL6ZJTdD6Z5N5N+2kxtHLf2EyN5PLaviHI2JwZjNlL2rMguK9CoXczHt3OcPDVrAexaZ4LJMfv/ZV3vOH4NI/pvdF2XNs6R6mlBReR7S009rjigv2Kxurgod+HpzOWk31w2y6fYQQrxfRBLjTw3h3RFADRcBtsnooUu0oijGkhmcK5L67Yy6TTBCJpVDleVRAaIJkwaAybtDwq78OokxsCwYZFG4FR2PASNTpAvu4m4Q8LLXPOcMjGbYTM/Mq45oEd6/Kww4I0wheiyL61r3F4HEvYvGdk="
     - secure: "oqQp54rcl1YMHKHUMofwzcZXBNw+CBJ4/N/W+8SPJOjVCqq5tptuSGKD1g1bZVb9dHvQ/6Od2jMS4Cnjb4JmcAa02a8HqYa+hLlgfaW9d2pV41KQXd1lNBlTSk+cm3vcL3OHpmKwZi507vbUvfezkHGhuXuu7wPVuPCSvfFcr1InJ+cb08TSHHLf9Q5pl4n9B3bXIOV2ul6xz4qEziI/q1Vlk9XTkhkV269O/3QF9KRtfrIAnAOmg9BnbCCX8KDDf3wzGCzNHcPDx4I2GpfgBg0U2JmMql3IgLWih6Wd5GzzuyDfsyqCBX97eBGqKBtnk3WZv0z4eb3sSBPn4fLSACADceHOPg9cuJZn+yscolsK1CGbacFrBk8RCl+4nEhJ7KOYiHuufuw3Gu8IkPrJ9ma4K98Wh30wEyy+BImj4HdqKoEXBYV/RZPnXGmPJsTp08V4a5pKxSFOXZS01Hs32zMyrereZhwI0dB1nmXMpnNBFvr/3/r/eXGmlR5lVU1liJ8DRmrREjZiGl4vZqjk2gNvHMnvJSkTxcgahTgvGd9yGUlRFnCV1VaHv+onCBD6Y1dyF4KXFz+FVzmm05jU+DxHOud35qUp7KmQ/u8f0ottbk75I8VLpm2PyHAKWE03CraCbPrWT1q0W8LDOaDYtivBTLwY8flajGXZIYMSGxw="
     - secure: "mdgXH+nj6hjDsBqduo5p1ok67Hq5Y1++6x/fCdbLAIH7JPljUgli7aXEZSVYvLruPM1tvagWC8dJ8RyhaHvYQhyf01446H7yWn70E/wufgWQZHY6p5CEFEfORKdDpaniV+v/YS9B9y/t64rSR1KZCKI13ZAUfL8ApgoWTR5DOZ3nJ7UZoWXzwpJoCl+ZZpigqu50iuyYtj7NESoRjxuPhEWzw9/MHJb1Ej7UZ/LftvYrLBX4z3r64WgHdaMd4E05GU3jPBZxb11Pp69qspzS9tAdx1u61kD6QJsp39gHLPAQSbVTQnapEF1OnD2v7QmKjfEOLq38DkkhPq5IQf65APdqokkVMGc4f/ygCZ8dhcf4eI8vMlBOGLpMB4dBlx1bTo/jTr8A6FDHZX5XFmmLGWX+Oh/wUGFlR0BsbJMW5imbRVgSDSOrCD87YuBlceVRfceEBXQhynOHzNQ7IyN8EUAKgEv04mHvXSJKJCFy+KT6oI0mVmRiif/EGg32kfcNQE+eJekb8jeIrtDzYIh4Dm9DbvhunplTndydA22QOoNIS0nHFzYBS+8WEeVgkdYRELSJ30fi0WVsEOy2QF6b2sU9uXoNHPOq11/Xe8NHA2cRL7dnzFq/ZcJLiVZgdyXG4i1s/0C8gCoNbE6cWPTo2CQFjxzhp5VsiVFZTXuz7Uo="
-    
-
