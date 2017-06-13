@@ -21,7 +21,8 @@ public class YamlInputStreamsBuilder {
 		if (stream != null) {
 			this.inputStreams.add(stream);
 		} else {
-			// TODO file ignored
+			// BETTER use logger
+			System.out.println("File \"" + classpathLocation + "\" is not found in classpath and therefore ignored.");
 		}
 		return this;
 	}
@@ -37,17 +38,20 @@ public class YamlInputStreamsBuilder {
 				final InputStream stream = Files.newInputStream(path);
 				this.inputStreams.add(stream);
 			} catch (final IOException e) {
-				// TODO
+				// BETTER use logger
+				System.out.println("An error occured while reading \"" + path + "\". File is ignored.");
 			}
 		} else if (Files.isDirectory(path)) {
 			final PathMatcher filter = path.getFileSystem().getPathMatcher("glob:**.yaml");
 			try {
 				Files.list(path).filter(x -> filter.matches(x)).forEach(this::addPath);
 			} catch (final IOException e) {
-				// TODO
+				// BETTER use logger
+				System.out.println("An error occured while reading \"" + path + "\". Directory is ignored.");
 			}
 		} else {
-			// TODO File ignored
+			// BETTER use logger
+			System.out.println("File or Directory \"" + path + "\" is not found and therefore ignored.");
 		}
 		return this;
 	}
