@@ -18,6 +18,11 @@ public final class Assertion {
 		return this.upperBound;
 	}
 
+	@Override
+	public String toString() {
+		return "[" + this.lowerBound + ',' + this.upperBound + ']';
+	}
+
 	public static final Assertion DUMMY = new Assertion(Double.NaN, Double.NaN);
 
 }
