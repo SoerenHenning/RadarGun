@@ -17,7 +17,9 @@ public class YamlInputStreamsBuilder {
 	}
 
 	public YamlInputStreamsBuilder addClasspathLocation(final String classpathLocation) {
-		final InputStream stream = this.getClass().getResourceAsStream(classpathLocation);
+		final String fixedClasspathLocation = classpathLocation.charAt(0) == '/' ? classpathLocation
+				: '/' + classpathLocation;
+		final InputStream stream = this.getClass().getResourceAsStream(fixedClasspathLocation);
 		if (stream != null) {
 			this.inputStreams.add(stream);
 		} else {
