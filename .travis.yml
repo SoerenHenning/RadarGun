@@ -2,7 +2,7 @@ language: java
 jdk:
   - oraclejdk8
 after_success:
-    - deploy/before-deploy.sh
+    - deploy/deploy.sh
 env:
   global:
     - secure: "I76NNRKagWmuK87AIbpaWsp+h2IC9FRSvAIm6I0heaLv+BwgGK3xkMY1BzVGApcPiXYz4B5VgGGEZ4bujsd7cGU+AEP9N/R5tsbdyVFuxsaa3tyCWwpbVCLCGw2WfDxouu4zkFTQ1sVWdMRkgEnd8AqHi6L2EySLtlPu1Zq3Di2OOhf2eiZxwcteVJ7rbDK4HvkNk0K/E/+sdE+XZdPIWW02g1F9M/JIaGH28DdHUH7QQvxi6s7LmzxmnVDMjGZhvijsXa2dfC/XaqFCYJz/57/CDT5EKFhAE/NKRW917Vf4Jrq2YsIXvvpyMI3/fKZkh61o+WhvQByc17+ON0bVis8ukADQfLUuDWNeQxDfGThl5TFbPW0aAhuYYLYxGJLHWFE5MwJsWAlpczLxaCe4QPP/GaR/I2QV7YB7ljdJ7jUEZ3/uvJQ3dyBXnVdvZjYqaR7j0aKGQTabypt8L0j91uYrrixeSuusmgM378xhauQej5zUt7Hzq6bcB2pSVqwa4VT1DZv0LafL6R+IIP8ipp31EDUepVV/8czJioBtVixELYroYZvSrzbrRGgbmSaPes8mnYSe6kogdDS2UgqhbGzDIFfP9JWdrjDrL1lN3vXiWPBTffSR8hBXxKcxcvVIN/fmu0e5W1reuWL/N/s8Fmeqt/9F/Yo0yvKqSPIEAeU="
