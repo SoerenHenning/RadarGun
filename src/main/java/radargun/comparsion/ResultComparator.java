@@ -22,7 +22,7 @@ public class ResultComparator {
 	}
 
 	public TestResult compare(final RunResult runResult) {
-		final String testName = ""; // TODO
+		final String testName = runResult.getParams().getBenchmark();
 		final Assertion assertion = this.assertions.getOrDefault(testName, Assertion.DUMMY);
 		return this.testResultFactory.create(runResult, assertion);
 	}
