@@ -4,14 +4,13 @@ import java.util.Map;
 
 import radargun.comparsion.machine.identification.MachineIdentifier;
 
-//TODO Name
-public interface Test {
+public interface AssertionsDeclaration {
 
 	public MachineIdentifier getMachineIdentifier();
 
 	public Map<String, Assertion> getTests();
 
-	public static Test of(final MachineIdentifier identifier, final Map<String, Assertion> tests) {
-		return new TestImpl(identifier, tests);
+	public static AssertionsDeclaration of(final MachineIdentifier identifier, final Map<String, Assertion> tests) {
+		return new AssertionsDeclarationImpl(identifier, tests);
 	}
 }

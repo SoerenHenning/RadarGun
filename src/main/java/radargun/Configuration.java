@@ -7,7 +7,7 @@ import radargun.benchmarks.BenchmarkRunnerStage;
 import radargun.comparsion.ResultComparator;
 import radargun.comparsion.ResultComparatorStage;
 import radargun.comparsion.result.TestResult;
-import radargun.comparsion.yaml.YamlTest;
+import radargun.comparsion.yaml.YamlAssertionsDeclaration;
 import radargun.output.csv.CSVExport;
 import radargun.output.csv.CSVExportStage;
 import radargun.output.exitonfail.FinallyExitOnFailStage;
@@ -26,7 +26,7 @@ public class Configuration extends teetime.framework.Configuration {
 		// Create base stages
 		final BenchmarkRunnerStage benchmarkRunner = new BenchmarkRunnerStage(options.getRunner());
 		final ResultComparatorStage resultComparator = new ResultComparatorStage(
-				new ResultComparator(YamlTest.createAll(options.getYamlInputStreams())));
+				new ResultComparator(YamlAssertionsDeclaration.createAll(options.getYamlInputStreams())));
 		final Distributor<TestResult> resultsDistributor = new Distributor<>(new CopyByReferenceStrategy());
 
 		// Connect base stages
