@@ -8,7 +8,9 @@
 	<packaging>jar</packaging>
 
 	<name>RadarGun</name>
+	<description>TeeTime is a Pipe-and-Filter framework for Java</description>
 	<url>https://github.com/SoerenHenning/RadarGun</url>
+	<inceptionYear>2017</inceptionYear>
 
 	<licenses>
 		<license>
