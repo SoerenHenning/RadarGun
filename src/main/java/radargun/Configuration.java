@@ -18,6 +18,17 @@ import teetime.framework.OutputPort;
 import teetime.stage.basic.distributor.Distributor;
 import teetime.stage.basic.distributor.strategy.CopyByReferenceStrategy;
 
+/**
+ * The Pipe-and-Filter configuration of RadarGun. The stages are created and
+ * connected based on an {@link Options} object.
+ *
+ * TeeTime configurations are always composite stages itself. For further
+ * processing of {@link TestResult}s, this configuration exposes one
+ * {@link OutputPort} that can be used to connect further stages.
+ *
+ * @author Sören Henning
+ *
+ */
 public class Configuration extends teetime.framework.Configuration {
 
 	private final OutputPort<TestResult> outputPort;

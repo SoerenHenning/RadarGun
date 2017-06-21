@@ -4,6 +4,20 @@ import java.io.PrintStream;
 
 import radargun.comparsion.result.TestResult;
 
+/**
+ * This class prints a {@link TestResult} to the default system's output stream
+ * or another one if configured.
+ *
+ * The format is [{@code <status>}] {@code <test-name>} Score: {@code <score>}
+ * (Bounds: [{@code <lower-bound>}, {@code upper-bound}], where {@code <status>}
+ * is one of SUCCESSFULL, FAILED, or NO RESULT, @{@code <test-name>} is the
+ * test's name, {@code <score>} is the score's textual representation provided
+ * by JHM, and {@code <lower-bound>} and {@code <upper-bound>} are the
+ * assertion's bounds.
+ *
+ * @author Sören Henning
+ *
+ */
 public class ResultsPrinter {
 
 	private final PrintStream printStream;
