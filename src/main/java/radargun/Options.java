@@ -24,16 +24,13 @@ import radargun.comparsion.yaml.YamlInputStreamsBuilder;
 
 public class Options {
 
-	public Options() {
-	}
-
-	@Parameter(names = "--help", help = true)
+	@Parameter(names = "--help", help = true, description = "Print usage")
 	private boolean help;
 
 	@Parameter(names = "--assertions", converter = PathConverter.class, description = "Comma-sperated list of assertions in the filesystem (files or directories)")
 	private List<Path> files; // TODO name
 
-	@Parameter(names = "--cpassertions", description = "Comma-sperated list of assertions in the classpath (must be files)")
+	@Parameter(names = "--cp-assertions", description = "Comma-sperated list of assertions in the classpath (must be files)")
 	private List<String> classpathLocations; // TODO name
 
 	@Parameter(names = "--exit-on-fail-immediately", description = "Enable exit on fail of first test")
@@ -57,6 +54,13 @@ public class Options {
 	private Runner runner = null;
 
 	private List<InputStream> additionallyInputStreams;
+
+	public Options() {
+	}
+
+	public boolean isHelp() {
+		return this.help;
+	}
 
 	private Runner getDefaultRunner() {
 		final OptionsBuilder jmhOptionsBuilder = new OptionsBuilder();
@@ -180,10 +184,10 @@ public class Options {
 				.addPaths(this.getFilesIfPresent()).addInputStreams(this.getAddionallyInputStreamsIfPresent()).build();
 	}
 
-	public static Options create(final String... argv) {
-		final Options configuration = new Options();
-		JCommander.newBuilder().addObject(configuration).build().parse(argv);
-		return configuration;
+	public static Options create(final String... args) {
+		final Options options = new Options();
+		JCommander.newBuilder().addObject(options).build().parse(args);
+		return options;
 	}
 
 	private static class PathConverter implements IStringConverter<Path> {
