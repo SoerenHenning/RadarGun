@@ -1,7 +1,6 @@
 package radargun;
 
 import com.beust.jcommander.JCommander;
-import com.beust.jcommander.ParameterException;
 
 import teetime.framework.Execution;
 
@@ -21,18 +20,14 @@ public class Main {
 	}
 
 	public static void main(final String[] args) {
-		try {
-			final Options options = new Options();
-			final JCommander jCommander = JCommander.newBuilder().addObject(options).build();
-			jCommander.setProgramName(PROGRAM_NAME);
-			jCommander.parse(args);
-			if (options.isHelp()) {
-				jCommander.usage();
-			} else {
-				new Main(options).execute();
-			}
-		} catch (final ParameterException exception) {
-			System.err.println(exception.getMessage()); // TODO Use logger
+		final Options options = new Options();
+		final JCommander jCommander = JCommander.newBuilder().addObject(options).build();
+		jCommander.setProgramName(PROGRAM_NAME);
+		jCommander.parse(args);
+		if (options.isHelp()) {
+			jCommander.usage();
+		} else {
+			new Main(options).execute();
 		}
 	}
 }

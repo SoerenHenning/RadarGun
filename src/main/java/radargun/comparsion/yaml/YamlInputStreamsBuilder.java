@@ -9,7 +9,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class YamlInputStreamsBuilder {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(YamlAssertionsDeclaration.class);
 
 	private final List<InputStream> inputStreams = new ArrayList<>();
 
@@ -23,8 +28,7 @@ public class YamlInputStreamsBuilder {
 		if (stream != null) {
 			this.inputStreams.add(stream);
 		} else {
-			// BETTER use logger
-			System.out.println("File \"" + classpathLocation + "\" is not found in classpath and therefore ignored.");
+			LOGGER.warn("File \"{}\" is not found in classpath and therefore ignored.", classpathLocation);
 		}
 		return this;
 	}
@@ -40,20 +44,17 @@ public class YamlInputStreamsBuilder {
 				final InputStream stream = Files.newInputStream(path);
 				this.inputStreams.add(stream);
 			} catch (final IOException e) {
-				// BETTER use logger
-				System.out.println("An error occured while reading \"" + path + "\". File is ignored.");
+				LOGGER.warn("An error occured while reading \"{}\". File is ignored.", path);
 			}
 		} else if (Files.isDirectory(path)) {
 			final PathMatcher filter = path.getFileSystem().getPathMatcher("glob:**.yaml");
 			try {
 				Files.list(path).filter(x -> filter.matches(x)).forEach(this::addPath);
 			} catch (final IOException e) {
-				// BETTER use logger
-				System.out.println("An error occured while reading \"" + path + "\". Directory is ignored.");
+				LOGGER.warn("An error occured while reading \"{}\". Directory is ignored.", path);
 			}
 		} else {
-			// BETTER use logger
-			System.out.println("File or Directory \"" + path + "\" is not found and therefore ignored.");
+			LOGGER.warn("File or Directory \"{}\" is not found and therefore ignored.", path);
 		}
 		return this;
 	}

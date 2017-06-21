@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 
 import radargun.comparsion.Assertion;
@@ -17,6 +19,8 @@ import radargun.comparsion.machine.identification.MachineIdentifier;
 import radargun.comparsion.machine.identification.MachineIdentifiers;
 
 public class YamlAssertionsDeclaration implements AssertionsDeclaration {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(YamlAssertionsDeclaration.class);
 
 	private static final Yaml YAML = new Yaml();
 
@@ -73,13 +77,10 @@ public class YamlAssertionsDeclaration implements AssertionsDeclaration {
 	}
 
 	private static void logException(final YamlParsingException exception) {
-		// BETTER use logger
-		System.out.println("An error occured while processing a YAML file:");
-		System.out.println(exception.getMessage());
+		LOGGER.warn("An error occured while processing a YAML file: {}", exception.getMessage());
 	}
 
 	private static void logException(final IllegalArgumentException exception) {
-		// BETTER use logger
-		System.out.println(exception.getMessage());
+		LOGGER.warn("{}", exception.getMessage());
 	}
 }
