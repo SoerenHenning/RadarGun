@@ -10,6 +10,13 @@
 	<name>RadarGun</name>
 	<url>https://github.com/SoerenHenning/RadarGun</url>
 
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://github.com/SoerenHenning/RadarGun/blob/master/LICENSE</url>
+		</license>
+	</licenses>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
