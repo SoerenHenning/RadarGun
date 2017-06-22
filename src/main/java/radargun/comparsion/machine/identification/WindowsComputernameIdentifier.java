@@ -25,7 +25,7 @@ public class WindowsComputernameIdentifier implements MachineIdentifier {
 	public boolean testMachine() {
 		final String actualName = System.getenv("COMPUTERNAME");
 		for (final String testName : this.computerNames) {
-			if (actualName == testName) {
+			if (actualName.equals(testName)) {
 				return true;
 			}
 		}
