@@ -8,6 +8,8 @@ import radargun.comparsion.Assertion;
 
 public class TestResultFactory {
 
+	public static final ToDoubleFunction<RunResult> PRIMARY_RESULT_ACCESSOR = r -> r.getPrimaryResult().getScore();
+
 	private final ToDoubleFunction<RunResult> scoreAccessor;
 
 	public TestResultFactory() {
@@ -33,7 +35,5 @@ public class TestResultFactory {
 			return new TestInBoundsResult(assertion, runResult);
 		}
 	}
-
-	public static final ToDoubleFunction<RunResult> PRIMARY_RESULT_ACCESSOR = r -> r.getPrimaryResult().getScore();
 
 }

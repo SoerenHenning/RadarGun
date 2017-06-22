@@ -8,7 +8,7 @@ public class Main {
 
 	private static final String PROGRAM_NAME = "RadarGun";
 
-	final Execution<Configuration> analysis;
+	private final Execution<Configuration> analysis;
 
 	public Main(final Options options) {
 		final Configuration configuration = new Configuration(options);

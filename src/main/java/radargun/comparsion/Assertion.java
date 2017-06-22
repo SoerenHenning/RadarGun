@@ -2,6 +2,8 @@ package radargun.comparsion;
 
 public final class Assertion {
 
+	public static final Assertion DUMMY = new Assertion(Double.NaN, Double.NaN);
+
 	private final double lowerBound;
 	private final double upperBound;
 
@@ -22,7 +24,5 @@ public final class Assertion {
 	public String toString() {
 		return "[" + this.lowerBound + ',' + this.upperBound + ']';
 	}
-
-	public static final Assertion DUMMY = new Assertion(Double.NaN, Double.NaN);
 
 }
