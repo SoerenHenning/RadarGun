@@ -57,8 +57,8 @@ Usage: RadarGun [options]
       Enable JMH output
       Default: false
     --output-stream
-      Output stream ('out' or 'err')
-      Default: java.io.PrintStream@6e8cf4c6
+      Output stream ('out' for System.out or 'err' for System.err)
+      Default: System.out
 ```
 
 <Execution generell>
