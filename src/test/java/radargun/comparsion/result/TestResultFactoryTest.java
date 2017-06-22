@@ -1,32 +1,36 @@
 package radargun.comparsion.result;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openjdk.jmh.results.BenchmarkResult;
 import org.openjdk.jmh.results.IterationResult;
 import org.openjdk.jmh.results.ResultRole;
 import org.openjdk.jmh.results.RunResult;
 import org.openjdk.jmh.results.SingleShotResult;
 
-import junit.framework.TestCase;
 import radargun.comparsion.Assertion;
 
-public class TestResultFactoryTest extends TestCase {
+public class TestResultFactoryTest {
 
-	TestResultFactory testResultFactory;
+	private TestResultFactory testResultFactory;
 
-	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		this.testResultFactory = new TestResultFactory();
 	}
 
-	@Override
-	protected void tearDown() throws Exception {
-		this.testResultFactory = null;
+	@After
+	public void tearDown() throws Exception {
 	}
 
+	@Test
 	public void testCreateTestWithoutAssertionResult() {
 		final RunResult runResult = this.createMockedRunResult(10.0);
 		final Assertion assertion = Assertion.DUMMY;
@@ -34,6 +38,7 @@ public class TestResultFactoryTest extends TestCase {
 		assertTrue(testResult instanceof TestWithoutAssertionResult);
 	}
 
+	@Test
 	public void testTestUndercutsBoundsResult() {
 		final RunResult runResult = this.createMockedRunResult(8.0);
 		final Assertion assertion = new Assertion(9.0, 11.0);
@@ -41,6 +46,7 @@ public class TestResultFactoryTest extends TestCase {
 		assertTrue(testResult instanceof TestUndercutsBoundsResult);
 	}
 
+	@Test
 	public void testTestExceedsBoundsResult() {
 		final RunResult runResult = this.createMockedRunResult(12.0);
 		final Assertion assertion = new Assertion(9.0, 11.0);
@@ -48,6 +54,7 @@ public class TestResultFactoryTest extends TestCase {
 		assertTrue(testResult instanceof TestExceedsBoundsResult);
 	}
 
+	@Test
 	public void testCreateTestInBoundsResult() {
 		final RunResult runResult = this.createMockedRunResult(10.0);
 		final Assertion assertion = new Assertion(9.0, 11.0);
