@@ -121,6 +121,14 @@
 									<shadedPattern>radargun.lib.teetime</shadedPattern>
 								</relocation>
 								<relocation>
+									<pattern>ch.qos</pattern>
+									<shadedPattern>radargun.lib.ch.qos</shadedPattern>
+								</relocation>
+								<relocation>
+									<pattern>org.slf4j</pattern>
+									<shadedPattern>radargun.lib.org.slf4j</shadedPattern>
+								</relocation>
+								<relocation>
 									<pattern>org.yaml.snakeyaml</pattern>
 									<shadedPattern>radargun.lib.org.yaml.snakeyaml</shadedPattern>
 								</relocation>
