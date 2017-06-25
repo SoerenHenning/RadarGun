@@ -1,4 +1,4 @@
-# RadarGun
+# RadarGun - Performance Testing Framework
 
 RadarGun is a Java framework for automated performance tests - just like jUnit for unit tests.
 
