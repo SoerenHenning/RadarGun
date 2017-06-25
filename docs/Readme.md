@@ -96,3 +96,12 @@ RadarGun uses the Pipe-And-Filter framework [TeeTime](http://teetime-framework.g
 <Declaration of Asertions>
 
 <Machine Identification>
+
+
+## Build RadarGun by Yourself
+
+RadarGun uses Apache Maven as build tool. To build RadarGun an existing Maven and JDK installation is required. Simply execute:
+
+```shell
+mvn install
+```
