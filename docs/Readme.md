@@ -1,6 +1,12 @@
 # RadarGun
 
-<Description>
+RadarGun is a Java framework for automated performance tests - just like jUnit for unit tests.
+
+RadarGun performance tests consists of two parts:
+
+1. **The Benchmark** Benchmarks have to be written with the [Java Microbenchmarking Harness (JMH)](http://openjdk.java.net/projects/code-tools/jmh/). They define the code segment (i.e., a sequence of instructions) that should be tested.
+Since conducting statically significant performance measurements in Java is not as easy as it seems, we recommend the paper [DOs and DON’Ts of Conducting Performance Measurements in Java](http://d3s.mff.cuni.cz/~steinhauser/icpe2015tt.pdf). Moreover, there exists several tutorials on JHM in the web.
+2. **The Assertions** Assertions define an interval in which a test execution is seen as sucessful or not. Since the execution time highly dependends on the executing machine, assertions are defined individually per machine. See [Declaration of Asertions](#Declaration-of-Asertions) for more information.
 
 ## Usage
 
@@ -93,10 +99,33 @@ For other build tools, adding the dependencies is similar.
 
 RadarGun uses the Pipe-And-Filter framework [TeeTime](http://teetime-framework.github.io). Thus, a good starting point to work with it, is to use its `radargun.Configuration`.
 
-<Declaration of Asertions>
+## Declaration of Asertions
 
-<Machine Identification>
+Assertions are defined in YAML files in the following format:
 
+```yaml
+---
+identifier: MacAddressIdentifier
+parameters: [01:23:45:67:89:AB]
+tests:
+  myproject.benchmark.MyFirstBenchmark.run: [70, 90]
+  myproject.benchmark.MySecondBenchmark.run: [6.4, 6.7]
+  myproject.benchmark.MyThirdBenchmark.run: [1300, 1400]
+```
+
+First, it defines the machine by an identifier class and the parameters by which it will be created (see [Machine Identification](#Machine-Identification)). Afterwards, all assertions are declared by the fully qualified name of the benchmark and the lower and upper bound for the permitted benchmarks result.
+
+## Machine Identification
+
+RadarGun provides the following machine identifers:
+
+- `NetworkAddressIdentifier` Tests for a one or more network addresses, which can either be IP addresses or host names.
+- `MacAddressIdentifier` Tests for one or more MAC addresses.
+- `WindowsComputernameIdentifier` Tests for one or more computer names. Limited to Windows systems only.
+- `WildcardIdentifier` Matches for all machines. It can be used when no machine distinction is necessary. (E.g., if there is only one machine.)
+- `Dismiss Identifier` Matches for no machine. Normally, just used internally by RadarGun.
+
+Of course, you can implement your own identifier. To do so, you just have to implement the `MachineIdentifier` interface. If your identifier is not located in the package `radargun.comparsion.machine.identification`, you have to define its fully qualified name in the assertions files.
 
 ## Build RadarGun by Yourself
 
