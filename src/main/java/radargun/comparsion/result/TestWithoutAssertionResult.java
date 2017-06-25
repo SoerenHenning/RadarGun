@@ -4,15 +4,15 @@ import org.openjdk.jmh.results.RunResult;
 
 import radargun.comparsion.Assertion;
 
-public class TestExceedsBoundsResult extends AbstractTestResult {
+public class TestWithoutAssertionResult extends AbstractTestResult {
 
-	public TestExceedsBoundsResult(final Assertion assertion, final RunResult runResult) {
+	public TestWithoutAssertionResult(final Assertion assertion, final RunResult runResult) {
 		super(assertion, runResult);
 	}
 
 	@Override
 	public boolean hasFailed() {
-		return true;
+		return false;
 	}
 
 	@Override

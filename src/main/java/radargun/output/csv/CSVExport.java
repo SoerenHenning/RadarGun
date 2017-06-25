@@ -16,7 +16,7 @@ public class CSVExport {
 	}
 
 	public Path export(final TestResult result) throws IOException {
-		final String testName = result.getRunResult().getPrimaryResult().getLabel();
+		final String testName = result.getRunResult().getParams().getBenchmark();
 		final double score = result.getRunResult().getPrimaryResult().getScore();
 		final double lowerBound = result.getAssertion().getLowerBound();
 		final double upperBound = result.getAssertion().getUpperBound();
@@ -25,24 +25,29 @@ public class CSVExport {
 	}
 
 	private Path getOrCreateCSVFile(final String name) throws IOException {
-		final Path csvFile = this.directory.resolve(name);
-		if (Files.isRegularFile(csvFile)) {
-			return csvFile;
+		final Path file = this.directory.resolve(name);
+		if (Files.isRegularFile(file)) {
+			return file;
 		} else {
-			return this.writeHeader(csvFile);
+			return this.createCSVFile(file);
 		}
 	}
 
-	private Path appendResult(final Path path, final double score, final double lowerBound, final double upperBound)
+	private Path appendResult(final Path file, final double score, final double lowerBound, final double upperBound)
 			throws IOException {
-		return Files.write(path,
-				('\n' + String.valueOf(score) + ',' + String.valueOf(lowerBound) + ',' + String.valueOf(upperBound))
+		return Files.write(file,
+				('\n' + this.makeString(score) + ',' + this.makeString(lowerBound) + ',' + this.makeString(upperBound))
 						.getBytes(),
 				StandardOpenOption.APPEND);
 	}
 
-	private Path writeHeader(final Path path) throws IOException {
-		return Files.write(path, ("score,lowerBound,upperBound").getBytes(), StandardOpenOption.CREATE);
+	private String makeString(final double value) {
+		return Double.isFinite(value) ? String.valueOf(value) : "";
+	}
+
+	private Path createCSVFile(final Path file) throws IOException {
+		Files.createDirectories(file.getParent());
+		return Files.write(file, ("score,lowerBound,upperBound").getBytes(), StandardOpenOption.CREATE);
 	}
 
 }

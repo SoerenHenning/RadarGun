@@ -1,33 +1,33 @@
 package radargun;
 
-import org.openjdk.jmh.runner.RunnerException;
+import com.beust.jcommander.JCommander;
 
-import radargun.experimental.JMHTest;
 import teetime.framework.Execution;
 
 public class Main {
 
-	private final Options options;
+	private static final String PROGRAM_NAME = "RadarGun";
+
+	private final Execution<Configuration> analysis;
 
 	public Main(final Options options) {
-		this.options = options;
+		final Configuration configuration = new Configuration(options);
+		this.analysis = new Execution<>(configuration);
 	}
 
 	public void execute() {
-		final Configuration configuration = new Configuration(this.options);
-		final Execution<Configuration> analysis = new Execution<>(configuration);
-		analysis.executeBlocking();
-		// TODO Temp
-		try {
-			JMHTest.main(null);
-		} catch (final RunnerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.analysis.executeBlocking();
 	}
 
-	public static void main(final String[] args) throws RunnerException {
-		final Options options = Options.create(args);
-		new Main(options).execute();
+	public static void main(final String[] args) {
+		final Options options = new Options();
+		final JCommander jCommander = JCommander.newBuilder().addObject(options).build();
+		jCommander.setProgramName(PROGRAM_NAME);
+		jCommander.parse(args);
+		if (options.isHelp()) {
+			jCommander.usage();
+		} else {
+			new Main(options).execute();
+		}
 	}
 }

@@ -8,6 +8,8 @@ import radargun.comparsion.Assertion;
 
 public class TestResultFactory {
 
+	public static final ToDoubleFunction<RunResult> PRIMARY_RESULT_ACCESSOR = r -> r.getPrimaryResult().getScore();
+
 	private final ToDoubleFunction<RunResult> scoreAccessor;
 
 	public TestResultFactory() {
@@ -21,7 +23,11 @@ public class TestResultFactory {
 	public TestResult create(final RunResult runResult, final Assertion assertion) {
 		final double score = this.scoreAccessor.applyAsDouble(runResult);
 
-		if (score < assertion.getLowerBound()) {
+		if (Double.isNaN(assertion.getLowerBound()) && Double.isNaN(assertion.getUpperBound())) {
+			return new TestWithoutAssertionResult(assertion, runResult);
+		} else if (Double.isNaN(score)) {
+			return new TestNotExecutedResult(assertion, runResult);
+		} else if (score < assertion.getLowerBound()) {
 			return new TestUndercutsBoundsResult(assertion, runResult);
 		} else if (score > assertion.getUpperBound()) {
 			return new TestExceedsBoundsResult(assertion, runResult);
@@ -29,7 +35,5 @@ public class TestResultFactory {
 			return new TestInBoundsResult(assertion, runResult);
 		}
 	}
-
-	public static final ToDoubleFunction<RunResult> PRIMARY_RESULT_ACCESSOR = r -> r.getPrimaryResult().getScore();
 
 }

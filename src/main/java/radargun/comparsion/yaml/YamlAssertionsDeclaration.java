@@ -8,22 +8,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 
 import radargun.comparsion.Assertion;
-import radargun.comparsion.Test;
+import radargun.comparsion.AssertionsDeclaration;
 import radargun.comparsion.machine.identification.DismissIdentifier;
 import radargun.comparsion.machine.identification.MachineIdentifier;
 import radargun.comparsion.machine.identification.MachineIdentifiers;
 
-//TODO Name
-public class YamlTest implements Test {
+public class YamlAssertionsDeclaration implements AssertionsDeclaration {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(YamlAssertionsDeclaration.class);
 
 	private static final Yaml YAML = new Yaml();
 
 	private final YamlParser assertionsParser;
 
-	public YamlTest(final YamlParser assertionsParser) {
+	public YamlAssertionsDeclaration(final YamlParser assertionsParser) {
 		this.assertionsParser = assertionsParser;
 	}
 
@@ -54,12 +57,12 @@ public class YamlTest implements Test {
 
 	}
 
-	public static Collection<YamlTest> createAll(final InputStream inputStream) {
+	public static Collection<YamlAssertionsDeclaration> createAll(final InputStream inputStream) {
 		final Iterable<Object> loadedObjects = YAML.loadAll(inputStream);
-		final List<YamlTest> yamlParsers = new ArrayList<>();
+		final List<YamlAssertionsDeclaration> yamlParsers = new ArrayList<>();
 		for (final Object loadedObject : loadedObjects) {
 			try {
-				yamlParsers.add(new YamlTest(new YamlParser(loadedObject)));
+				yamlParsers.add(new YamlAssertionsDeclaration(new YamlParser(loadedObject)));
 			} catch (final YamlParsingException e) {
 				logException(e);
 			}
@@ -68,18 +71,16 @@ public class YamlTest implements Test {
 		return yamlParsers;
 	}
 
-	public static Collection<YamlTest> createAll(final Collection<InputStream> inputStreams) {
-		return inputStreams.stream().flatMap(s -> YamlTest.createAll(s).stream()).collect(Collectors.toList());
+	public static Collection<YamlAssertionsDeclaration> createAll(final Collection<InputStream> inputStreams) {
+		return inputStreams.stream().flatMap(s -> YamlAssertionsDeclaration.createAll(s).stream())
+				.collect(Collectors.toList());
 	}
 
 	private static void logException(final YamlParsingException exception) {
-		// BETTER use logger
-		System.out.println("An error occured while processing a YAML file:");
-		System.out.println(exception.getMessage());
+		LOGGER.warn("An error occured while processing a YAML file: {}", exception.getMessage());
 	}
 
 	private static void logException(final IllegalArgumentException exception) {
-		// BETTER use logger
-		System.out.println(exception.getMessage());
+		LOGGER.warn("{}", exception.getMessage());
 	}
 }

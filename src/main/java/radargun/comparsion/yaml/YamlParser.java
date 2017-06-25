@@ -71,7 +71,9 @@ public class YamlParser {
 			if (!(rawUpperBound instanceof Number)) {
 				throw new YamlParsingException("The upper bound given for test \"" + key + "\" is not a number.");
 			}
-			castedTests.put(key.toString(), new Assertion((double) rawLowerBound, (double) rawUpperBound));
+			final double lowerBound = ((Number) rawLowerBound).doubleValue();
+			final double upperBound = ((Number) rawUpperBound).doubleValue();
+			castedTests.put(key.toString(), new Assertion(lowerBound, upperBound));
 		}
 		return castedTests;
 	}

@@ -30,8 +30,9 @@ public class NetworkAddressIdentifier implements MachineIdentifier {
 				final NetworkInterface networkInterface = networkInterfaces.nextElement();
 				final Enumeration<InetAddress> InetAdresses = networkInterface.getInetAddresses();
 				while (InetAdresses.hasMoreElements()) {
-					final String discoveredIpAddress = InetAdresses.nextElement().getHostAddress();
-					final String discoveredHostName = InetAdresses.nextElement().getHostName();
+					final InetAddress inetAddress = InetAdresses.nextElement();
+					final String discoveredIpAddress = inetAddress.getHostAddress();
+					final String discoveredHostName = inetAddress.getHostName();
 					for (final String ipAddress : this.networkAddresses) {
 						if (discoveredIpAddress.equals(ipAddress)) {
 							return true;

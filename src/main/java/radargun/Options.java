@@ -24,36 +24,43 @@ import radargun.comparsion.yaml.YamlInputStreamsBuilder;
 
 public class Options {
 
+	@Parameter(names = "--help", help = true, description = "Print usage")
+	private boolean help;
+
+	@Parameter(names = "--assertions", converter = PathConverter.class, description = "Comma-sperated list of assertions in the filesystem (files or directories)")
+	private List<Path> files; // TODO name
+
+	@Parameter(names = "--cp-assertions", description = "Comma-sperated list of assertions in the classpath (must be files)")
+	private List<String> classpathLocations; // TODO name
+
+	@Parameter(names = "--exit-on-fail-immediately", description = "Enable exit on fail of first test")
+	private boolean exitOnFailImmediately = false;
+
+	@Parameter(names = "--exit-on-fail", description = "Enable exit on fail after all tests run")
+	private boolean exitOnFail = false;
+
+	@Parameter(names = "--console-output", arity = 1, description = "Console output")
+	private boolean output = true;
+
+	@Parameter(names = "--jmh-output", description = "Enable JMH output")
+	private boolean jmhOutput = false;
+
+	@Parameter(names = "--output-stream", validateWith = PrintStreamValidator.class, converter = PrintStreamConverter.class, description = "Output stream ('out' or 'err')")
+	private PrintStream outputStream = System.out;
+
+	@Parameter(names = "--csv", converter = PathConverter.class, description = "Enables CSV output to specified directory")
+	private Path csvDirectory = null;
+
+	private Runner runner = null;
+
+	private List<InputStream> additionallyInputStreams;
+
 	public Options() {
 	}
 
-	@Parameter(names = "--help", help = true)
-	private boolean help;
-
-	@Parameter(names = "--assertions", converter = PathConverter.class, description = "...") // TODO
-	private List<Path> files; // TODO name
-
-	@Parameter(names = "--cpassertions", description = "...") // TODO
-	private List<String> classpathLocations; // TODO name
-
-	@Parameter(names = "--exit-on-fail", description = "...") // TODO
-	private boolean exitOnFail = false;
-
-	@Parameter(names = "--console-output", description = "...") // TODO
-	private boolean output = true;
-
-	@Parameter(names = "--jmh-output", description = "...") // TODO
-	private boolean jmhOutput = false;
-
-	@Parameter(names = "--output-stream", validateWith = PrintStreamValidator.class, converter = PrintStreamConverter.class)
-	private PrintStream outputStream = System.out;
-
-	@Parameter(names = "--csv", converter = PathConverter.class, description = "...") // TODO
-	private Path csvDirectory = null;
-
-	private Runner runner; // TODO
-
-	private List<InputStream> additionallyInputStreams; // TODO
+	public boolean isHelp() {
+		return this.help;
+	}
 
 	private Runner getDefaultRunner() {
 		final OptionsBuilder jmhOptionsBuilder = new OptionsBuilder();
@@ -113,6 +120,14 @@ public class Options {
 		this.exitOnFail = exitOnFail;
 	}
 
+	public boolean isExitOnFailImmediately() {
+		return this.exitOnFailImmediately;
+	}
+
+	public void setExitOnFailImmediately(final boolean exitOnFailImmediately) {
+		this.exitOnFailImmediately = exitOnFailImmediately;
+	}
+
 	public boolean isOutput() {
 		return this.output;
 	}
@@ -169,10 +184,10 @@ public class Options {
 				.addPaths(this.getFilesIfPresent()).addInputStreams(this.getAddionallyInputStreamsIfPresent()).build();
 	}
 
-	public static Options create(final String... argv) {
-		final Options configuration = new Options();
-		JCommander.newBuilder().addObject(configuration).build().parse(argv);
-		return configuration;
+	public static Options create(final String... args) {
+		final Options options = new Options();
+		JCommander.newBuilder().addObject(options).build().parse(args);
+		return options;
 	}
 
 	private static class PathConverter implements IStringConverter<Path> {

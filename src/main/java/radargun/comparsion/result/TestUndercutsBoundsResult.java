@@ -12,12 +12,12 @@ public class TestUndercutsBoundsResult extends AbstractTestResult {
 
 	@Override
 	public boolean hasFailed() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean wasSuccesfull() {
-		return true;
+		return false;
 	}
 
 }
