@@ -24,14 +24,14 @@ This will simply execute all JMH benchmarks. To make RadarGun comparing the benc
 
 **From file system:**
 If you have placed your assertions on the filesystem, append `--assertions` with a comma-separated list of files or directories to the command.
-A passed file have to be a YAML file containing assertions. When passing a directory, RadarGun considers all containing YAML files.
+A passed file has to be a YAML file containing assertions. When passing a directory, RadarGun considers all containing YAML files.
 Of course, you can mix both files and directories.
 
 **From classpaths:**
 If your assertions are located in the classpath, for instance, directly in the benchmarks project, append `--cp-assertions` with a comma-separated list of files. Here, no directories are allowed for technical reasons. 
 
 
-RadarGun provides some more options, for example, to configure its output or 
+RadarGun provides some more options, for example, to configure its output: 
 
 ```
 Usage: RadarGun [options]
@@ -61,11 +61,37 @@ Usage: RadarGun [options]
       Default: System.out
 ```
 
-<Execution generell>
+### Using the Java API
 
-<Execution via command line>
+To use RadarGun within your Java (or other JVM-based language) project, you have to add it to your project's build path. You can either download the sources directly or use a build or dependency management tool such as Apache Maven.
 
-<Usage as Dependency>
+<!---
+TODO: Add instructions for release
+-->
+
+RadarGun is currently only available as a so called *Snapshot*. However, this will change in a very near future. This version contains the latest changes and updates, but may be unstable. Therefore, it is not meant for productive usage. If you use Maven, please add the following depenency to the dependencies's section of your `pox.xml`:
+
+```xml
+<dependency>
+  <groupId>de.soeren-henning</groupId>
+  <artifactId>radargun</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+If you did not add the Sonatype snapshot repository yet to your pom.xml, add also following lines to it, as otherwise Maven will not be able to find the needed artifacts:
+
+```xml
+<repositories>
+  <repository>
+    <id>sonatype.oss.snapshots</id>
+    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+  </repository>
+</repositories>
+```
+
+For other build tools, adding the dependencies is similar.
+
+RadarGun uses the Pipe-And-Filter framework [TeeTime](http://teetime-framework.github.io). Thus, a good starting point to work with it, is to use its `radargun.Configuration`.
 
 <Declaration of Asertions>
 
