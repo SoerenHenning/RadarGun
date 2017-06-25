@@ -14,7 +14,7 @@ RadarGun can be executed in two different ways: First, via the command line and,
 
 ### Execution via Command Line
 
-The easiest way to execute RadarGun is via the command line: Just download RadarGun, make sure to have a recent Java installed, and type the following. Do not forget to replace `<your_benchmarks.jar>` by your benchmarks jar file.
+The easiest way to execute RadarGun is via the command line: Just [download RadarGun](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=snapshots&g=de.soeren-henning&a=radargun&v=LATEST), make sure to have a recent Java installed, and type the following. Do not forget to replace `<your_benchmarks.jar>` by your benchmarks jar file.
 
 ##### On Unix-like operating systems (such as Linux and macOS):
 ```shell
