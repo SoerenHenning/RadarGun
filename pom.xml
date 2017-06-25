@@ -8,7 +8,6 @@
 	<packaging>jar</packaging>
 
 	<name>RadarGun</name>
-	<description>TeeTime is a Pipe-and-Filter framework for Java</description>
 	<url>https://github.com/SoerenHenning/RadarGun</url>
 	<inceptionYear>2017</inceptionYear>
 
@@ -240,4 +239,5 @@
 			</build>
 		</profile>
 	</profiles>
+	<description>RadarGun is a Java framework for automated performance tests - just like jUnit for unit tests.</description>
 </project>
