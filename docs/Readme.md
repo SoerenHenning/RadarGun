@@ -6,7 +6,7 @@ RadarGun performance tests consists of two parts:
 
 1. **The Benchmark** Benchmarks have to be written with the [Java Microbenchmarking Harness (JMH)](http://openjdk.java.net/projects/code-tools/jmh/). They define the code segment (i.e., a sequence of instructions) that should be tested.
 Since conducting statically significant performance measurements in Java is not as easy as it seems, we recommend the paper [DOs and DON’Ts of Conducting Performance Measurements in Java](http://d3s.mff.cuni.cz/~steinhauser/icpe2015tt.pdf). Moreover, there exists several tutorials on JHM in the web.
-2. **The Assertions** Assertions define an interval in which a test execution is seen as sucessful or not. Since the execution time highly dependends on the executing machine, assertions are defined individually per machine. See [Declaration of Assertions](#declaration-of-assertions) for more information.
+2. **The Assertions** Assertions define an interval in which a test execution is seen as sucessful or not. Since the execution time highly dependends on the executing machine, assertions are defined individually per machine. RadarGun picks then the right assertion. See [Declaration of Assertions](#declaration-of-assertions) for more information.
 
 ## Usage
 
@@ -114,6 +114,8 @@ tests:
 ```
 
 First, it defines the machine by an identifier class and the parameters by which it will be created (see [Machine Identification](#machine-identification)). Afterwards, all assertions are declared by the fully qualified name of the benchmark and the lower and upper bound for the permitted benchmarks result.
+
+A YAML file can contain multiple of such blocks (separated by a `---` line) and, moreover, RadarGun can handle multiple of YAML files. RadarGun picks the right assertions.
 
 ## Machine Identification
 
