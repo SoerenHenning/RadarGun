@@ -16,7 +16,7 @@ public class ResultComparator {
 	public ResultComparator(final Iterable<? extends AssertionsDeclaration> collection) {
 		for (final AssertionsDeclaration test : collection) {
 			if (test.getMachineIdentifier().testMachine()) {
-				this.assertions.putAll(test.getTests());
+				this.assertions.putAll(test.getAssertions());
 			}
 		}
 	}

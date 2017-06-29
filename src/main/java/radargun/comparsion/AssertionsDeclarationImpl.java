@@ -21,7 +21,7 @@ class AssertionsDeclarationImpl implements AssertionsDeclaration {
 	}
 
 	@Override
-	public Map<String, Assertion> getTests() {
+	public Map<String, Assertion> getAssertions() {
 		return this.tests;
 	}
 

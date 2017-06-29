@@ -47,7 +47,7 @@ public class YamlAssertionsDeclaration implements AssertionsDeclaration {
 	}
 
 	@Override
-	public Map<String, Assertion> getTests() {
+	public Map<String, Assertion> getAssertions() {
 		try {
 			return this.assertionsParser.getTests();
 		} catch (final YamlParsingException e) {
